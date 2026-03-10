@@ -3,169 +3,204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Ovidiu Pascu - AI Tezaur</title>
+    <title>Dumitru-Ovidiu Pascu - Viitorul Tradiției</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root { 
-            --cyber-rosu: #FF0000; 
-            --cyber-albastru: #00CCFF; 
-            --cyber-aur: #FFD700;
-            --bg-dark: #0a0a0a;
+            --rosu-sange: #C8102E; 
+            --albastru-cobalt: #002366; 
+            --auriu-grau: #F1C40F; 
+            --fundal-in: #F9F6F0;
         }
         
         body { 
-            background-color: var(--bg-dark);
-            color: #e0e0e0;
-            font-family: 'Courier New', Courier, monospace; /* Stil cod sursa */
-            margin: 0; padding: 0;
-            overflow-x: hidden;
-        }
-
-        /* Fundal Digital-Etnic */
-        .grid-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            /* Un fundal luminos, panza de in, cu o retea fina digitala */
+            background-color: var(--fundal-in);
             background-image: 
-                linear-gradient(rgba(0, 204, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 204, 255, 0.05) 1px, transparent 1px);
-            background-size: 30px 30px;
-            pointer-events: none; z-index: -1;
+                radial-gradient(rgba(0, 35, 102, 0.05) 2px, transparent 2px),
+                url('https://www.transparenttextures.com/patterns/natural-linen.png');
+            background-size: 40px 40px, auto;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0; padding: 0; color: #2c3e50;
+            line-height: 1.8;
         }
 
-        /* Bordura Cyber-Ie */
-        .cyber-border {
-            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            border: 10px solid;
-            border-image: repeating-linear-gradient(45deg, var(--cyber-rosu), var(--cyber-rosu) 10px, var(--cyber-albastru) 10px, var(--cyber-albastru) 20px) 10;
-            pointer-events: none; z-index: 10000;
-            opacity: 0.6;
+        /* Efect de Sticla (Glassmorphism) amestecat cu Traditie */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-top: 4px solid var(--rosu-sange);
+            border-bottom: 4px solid var(--albastru-cobalt);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Noduri Digitale in culorile nationale */
+        .glass-panel::before {
+            content: ''; position: absolute; top: -10px; left: -10px;
+            width: 40px; height: 40px; border-radius: 50%;
+            background: radial-gradient(circle, var(--auriu-grau) 0%, transparent 70%);
+            opacity: 0.5;
         }
 
         header {
-            text-align: center; padding: 60px 20px;
-            background: linear-gradient(to bottom, #1a1a1a, transparent);
-            border-bottom: 2px solid var(--cyber-aur);
+            text-align: center; padding: 50px 20px 30px;
+            position: relative;
         }
 
-        .glitch-title {
-            font-size: 2.2rem; font-weight: bold;
-            color: white; text-transform: uppercase;
-            text-shadow: 2px 2px var(--cyber-rosu), -2px -2px var(--cyber-albastru);
-            letter-spacing: 5px;
+        .titlu-modern {
+            font-family: 'Georgia', serif;
+            font-size: 2.4rem; color: var(--rosu-sange);
+            text-transform: uppercase; margin: 0;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
 
-        /* MENIU FUTURIST JOS */
+        .subtitlu-tech {
+            font-size: 1rem; font-weight: 600;
+            letter-spacing: 4px; color: var(--albastru-cobalt);
+            margin-top: 15px; display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
+
+        /* Ornament care imbina Iea cu Circuitul Electronic */
+        .ornament-fusion {
+            text-align: center; margin: 20px 0;
+            color: var(--auriu-grau); font-size: 1.5rem;
+            display: flex; justify-content: center; align-items: center; gap: 15px;
+        }
+        .ornament-fusion::before, .ornament-fusion::after {
+            content: ''; height: 2px; width: 50px;
+            background: linear-gradient(90deg, transparent, var(--rosu-sange), transparent);
+        }
+
+        .container { padding: 10px 20px 120px 20px; max-width: 850px; margin: 0 auto; }
+        
+        .section { display: none; animation: floatUp 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        .section.active { display: block; }
+
+        @keyframes floatUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+
+        h2.section-title {
+            font-family: 'Georgia', serif; color: var(--albastru-cobalt);
+            font-size: 1.6rem; margin-top: 0; border-bottom: 2px dashed #e0e0e0;
+            padding-bottom: 10px;
+        }
+
+        .highlight-text {
+            font-size: 1.15rem; font-weight: 600; color: var(--rosu-sange);
+            font-style: italic; text-align: center; margin-bottom: 20px;
+        }
+
+        /* Container Video Elegant */
+        .video-premium {
+            border-radius: 10px; overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            position: relative; padding-bottom: 56.25%; height: 0;
+            border: 3px solid white;
+        }
+        .video-premium iframe { position: absolute; top:0; left:0; width:100%; height:100%; }
+
+        /* Buton Interactiv Modern */
+        .btn-modern {
+            display: inline-block; background: linear-gradient(135deg, var(--rosu-sange), #a00000);
+            color: white !important; text-align: center; padding: 16px 35px;
+            text-decoration: none; font-weight: bold; border-radius: 30px;
+            margin-top: 25px; box-shadow: 0 10px 20px rgba(200, 16, 46, 0.3);
+            transition: all 0.3s; letter-spacing: 1px;
+        }
+        .btn-modern:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(200, 16, 46, 0.4); }
+
+        /* Navigatie Flotanta (Ca la Apple, dar cu suflet romanesc) */
         nav {
-            position: fixed; bottom: 20px; left: 20px; right: 20px;
-            background: rgba(0, 0, 0, 0.9); display: flex; justify-content: space-around;
-            padding: 15px 0; border: 1px solid var(--cyber-albastru); z-index: 10001;
-            border-radius: 50px; backdrop-filter: blur(10px);
+            position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.9); display: flex; justify-content: center; gap: 20px;
+            padding: 12px 25px; border-radius: 50px; z-index: 10000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid rgba(0,0,0,0.05);
+            backdrop-filter: blur(10px);
         }
 
         nav button {
-            background: none; border: none; color: #fff; 
-            font-size: 0.7rem; font-weight: bold; text-transform: uppercase;
+            background: none; border: none; color: #7f8c8d; 
+            font-size: 0.75rem; font-weight: bold; text-transform: uppercase;
+            display: flex; flex-direction: column; align-items: center; gap: 5px;
+            transition: 0.3s;
         }
 
-        nav button i { display: block; font-size: 1.5rem; color: var(--cyber-aur); margin-bottom: 5px; }
-        nav button.active { color: var(--cyber-rosu); text-shadow: 0 0 10px var(--cyber-rosu); }
-
-        .container { padding: 20px 30px 120px 30px; max-width: 800px; margin: 0 auto; }
+        nav button i { font-size: 1.4rem; transition: 0.3s; }
+        nav button.active { color: var(--rosu-sange); }
+        nav button.active i { transform: scale(1.2); color: var(--albastru-cobalt); }
         
-        .section { display: none; animation: cyberFade 0.5s ease-in; }
-        .section.active { display: block; }
-
-        @keyframes cyberFade { from { opacity: 0; filter: blur(10px); } to { opacity: 1; filter: blur(0); } }
-
-        /* Card Stil "Holograma" */
-        .holo-card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 30px; border: 1px solid rgba(0, 204, 255, 0.3);
-            position: relative; margin-bottom: 30px;
-            clip-path: polygon(0 0, 100% 0, 100% 90%, 90% 100%, 0 100%);
-        }
-
-        .holo-card h2 { color: var(--cyber-aur); text-transform: uppercase; font-size: 1.2rem; }
-
-        .ai-status {
-            font-size: 0.7rem; color: #00ff00; margin-bottom: 10px;
-            display: flex; align-items: center; gap: 5px;
-        }
-
-        .blink { animation: blinker 1s linear infinite; }
-        @keyframes blinker { 50% { opacity: 0; } }
-
-        .video-cyber {
-            border: 2px solid var(--cyber-albastru);
-            box-shadow: 0 0 20px var(--cyber-albastru);
-            position: relative; padding-bottom: 56.25%; height: 0;
-        }
-        .video-cyber iframe { position: absolute; top:0; left:0; width:100%; height:100%; }
-
-        .btn-ai {
-            display: block; background: transparent; color: var(--cyber-aur) !important;
-            text-align: center; padding: 15px; text-decoration: none;
-            font-weight: bold; border: 1px solid var(--cyber-aur);
-            margin-top: 20px; transition: 0.3s;
-        }
-        .btn-ai:hover { background: var(--cyber-aur); color: black !important; }
     </style>
 </head>
 <body>
 
-<div class="grid-overlay"></div>
-<div class="cyber-border"></div>
-
 <header>
-    <div class="glitch-title">D. Ovidiu Pascu</div>
-    <div style="font-weight: bold; letter-spacing: 2px; color: var(--cyber-aur); margin-top:10px;">
-        <i class="fas fa-microchip"></i> TEZAUR DIGITAL v3.0
+    <h1 class="titlu-modern">Dumitru-Ovidiu Pascu</h1>
+    <div class="ornament-fusion">
+        <i class="fab fa-pagelines"></i> <i class="fas fa-network-wired" style="font-size: 1rem; opacity: 0.5;"></i> <i class="fab fa-pagelines"></i>
+    </div>
+    <div class="subtitlu-tech">
+        <span>TRADIȚIE</span> • <span>INOVAȚIE</span> • <span>COVURLUI</span>
     </div>
 </header>
 
 <div class="container">
     
     <div id="acasa" class="section active">
-        <div class="holo-card">
-            <div class="ai-status"><span class="blink">●</span> AI CORE: ACTIVE</div>
-            <h2>Misiunea Noastră</h2>
-            <p>Suntem martorii unei simbioze unice: **Geniul Artificial** întâlnește **Geniul Popular**. Folclorul din Galați este acum procesat și păstrat în format digital etern.</p>
-            <p>"Rădăcinile nu se șterg, se codifică în viitor."</p>
+        <div class="glass-panel">
+            <h2 class="section-title">O Călătorie Sonoră</h2>
+            <p class="highlight-text">„Cred cu tărie că rădăcinile și melodiile străvechi ne definesc.”</p>
+            <p>Bine ați venit! Acest portal digital este o invitație deschisă către inima muzicii tradiționale și a folclorului românesc. Aici, moștenirea lăsată de străbuni nu este doar o amintire, ci un <strong>tezaur viu</strong>, pulsatil, pe care îl prețuim și îl aducem în prezent folosind uneltele viitorului.</p>
+            <p>Prin fuziunea dintre căldura vocii umane și puterea de arhivare a tehnologiei moderne, ne asigurăm că doina și balada vor răsuna pentru generațiile ce vor veni.</p>
         </div>
     </div>
 
     <div id="bio" class="section">
-        <div class="holo-card">
-            <h2>Algoritmul Artistului</h2>
-            <p>Dumitru-Ovidiu Pascu reprezintă puntea de legătură. Un interpret care folosește puterea tehnologiei actuale (AI) pentru a amplifica ecoul cântecului străbun.</p>
-            <p>Programat să păstreze tradiția din Covurlui vie în secolul 21.</p>
+        <div class="glass-panel">
+            <h2 class="section-title">Algoritmul Dorului</h2>
+            <p>Aici nu stocăm doar fișiere video, ci <strong>povești și semnificații</strong>. Fiecare cântec poartă în el istoria, bucuria și lacrima țăranului român.</p>
+            <ul style="list-style-type: square; color: var(--rosu-sange);">
+                <li><span style="color: #2c3e50;"><strong>Piese de Tezaur:</strong> Cântece de colecție, culese cu grijă din zona Covurluiului și nu numai.</span></li>
+                <li><span style="color: #2c3e50;"><strong>Emoție Autentică:</strong> Transmitem istoria nescrisă din spatele tradițiilor noastre.</span></li>
+            </ul>
+            <p>Muzica populară este inima și sufletul poporului român. Tehnologia este doar instrumentul prin care acest suflet este auzit mai departe, mai clar, mai puternic.</p>
         </div>
     </div>
 
     <div id="video" class="section">
-        <div class="holo-card">
-            <h2>Stream Tezaur</h2>
-            <div class="video-cyber">
+        <div class="glass-panel" style="text-align: center;">
+            <h2 class="section-title">Galerie Video Eterna</h2>
+            <div class="video-premium">
                 <iframe src="https://www.youtube.com/embed/videoseries?list=PLU99XRyrYep3X6HGO0T9VTWMDPoPsGGhi" frameborder="0" allowfullscreen></iframe>
             </div>
-            <a href="https://www.youtube.com/@Ovidiu-Pascu-RO" class="btn-ai">SINCRONIZARE YOUTUBE</a>
+            <a href="https://www.youtube.com/@Ovidiu-Pascu-RO" class="btn-modern"><i class="fab fa-youtube" style="margin-right: 8px;"></i> ABONEAZĂ-TE LA CANAL</a>
         </div>
     </div>
 
     <div id="contact" class="section">
-        <div class="holo-card" style="text-align: center;">
-            <h2>Input Colaborare</h2>
-            <p>Sistemul este deschis pentru spectacole și parteneriate culturale.</p>
-            <p style="font-size: 1.1rem; color: var(--cyber-albastru);">CMD_LINK: contact@ce-ai-ovidiu.online</p>
+        <div class="glass-panel" style="text-align: center;">
+            <h2 class="section-title">Conexiune Umană</h2>
+            <i class="fas fa-fingerprint" style="font-size: 3rem; color: var(--auriu-grau); margin: 15px 0;"></i>
+            <p>Sunt mereu deschis pentru a duce cântecul românesc pe marile scene, la evenimente culturale sau de suflet.</p>
+            <p style="font-size: 1.2rem; font-weight: bold; color: var(--albastru-cobalt); margin-top: 20px;">
+                contact@ce-ai-ovidiu.online
+            </p>
         </div>
     </div>
 
 </div>
 
 <nav>
-    <button onclick="navigare('acasa', this)" class="active"><i class="fas fa-terminal"></i>START</button>
-    <button onclick="navigare('bio', this)"><i class="fas fa-database"></i>DATE</button>
-    <button onclick="navigare('video', this)"><i class="fas fa-satellite"></i>MEDIA</button>
-    <button onclick="navigare('contact', this)"><i class="fas fa-network-wired"></i>LINK</button>
+    <button onclick="navigare('acasa', this)" class="active"><i class="fas fa-home"></i>Manifest</button>
+    <button onclick="navigare('bio', this)"><i class="fas fa-seedling"></i>Viziune</button>
+    <button onclick="navigare('video', this)"><i class="fas fa-film"></i>Tezaur</button>
+    <button onclick="navigare('contact', this)"><i class="fas fa-envelope"></i>Contact</button>
 </nav>
 
 <script>
