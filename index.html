@@ -2,242 +2,147 @@
 <html lang="ro">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dumitru-Ovidiu Pascu - Tezaur Românesc</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dumitru-Ovidiu Pascu - Tezaur Străbun</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root {
-            --rosu: #CC0000;
-            --albastru: #002B7F;
-            --galben: #FCD116;
-            --negru-etno: #1a1a1a;
-            --crem: #FDFBF7;
+        :root { 
+            --rosu: #B30000; 
+            --albastru: #002B7F; 
+            --galben: #FCD116; 
+            --negru: #1a1a1a;
+        }
+        
+        body { 
+            /* Fundal cu textura de hartie veche si poze de arhiva estompate */
+            background: sepia(0.5) url('https://www.transparenttextures.com/patterns/old-map.png'), #f4e4bc;
+            font-family: 'Times New Roman', Times, serif; 
+            margin: 0; padding: 0; color: #2e1a05;
         }
 
-        body {
-            background-color: var(--crem);
-            background-image: url('https://www.transparenttextures.com/patterns/natural-linen.png');
-            font-family: 'Georgia', serif;
-            margin: 0;
-            overflow-x: hidden;
+        /* Bordura tip stergar/ie care inconjoara ecranul */
+        .page-border {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border: 15px solid transparent;
+            border-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSf_x-vD0mR-E6I-D4jY6XpD9H7Bf8fG2G3XQ&s') 30 repeat; /* Motiv popular */
+            pointer-events: none;
+            z-index: 10000;
         }
 
-        /* Border stil Ie Românească */
-        .ie-border {
-            height: 20px;
-            background-image: url('https://www.transparenttextures.com/patterns/az-subtle.png');
-            background-color: var(--rosu);
-            border-bottom: 3px solid var(--negru-etno);
-        }
-
-        /* Navigatie Traditinala */
-        nav {
-            background: white;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 2px solid var(--rosu);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        nav a {
-            text-decoration: none;
-            color: var(--negru-etno);
-            font-weight: bold;
-            font-size: 0.9em;
-            text-transform: uppercase;
-            padding: 5px 10px;
-            border: 1px solid transparent;
-            transition: 0.3s;
-        }
-
-        nav a:hover {
-            color: var(--rosu);
-            border-bottom: 2px solid var(--rosu);
-        }
-
-        /* Header cu Coloana Infinitului */
         header {
-            text-align: center;
-            padding: 40px 20px;
-            background: rgba(255,255,255,0.4);
+            text-align: center; 
+            padding: 50px 20px;
+            background: url('https://www.transparenttextures.com/patterns/pinstriped-suit.png');
+            border-bottom: 5px double var(--rosu);
         }
 
-        .logo-area h1 {
+        .titlu-vechi {
+            font-size: 2.2rem;
             color: var(--rosu);
-            font-size: 2.2em;
+            text-transform: uppercase;
             margin: 0;
-            letter-spacing: 4px;
+            text-shadow: 2px 2px 0px rgba(255,255,255,0.5);
+            font-weight: 900;
         }
 
-        .motif-separator {
-            font-size: 2em;
-            color: var(--rosu);
-            margin: 10px 0;
+        .coloana {
+            height: 40px;
+            background: url('https://cdn-icons-png.flaticon.com/512/3858/3858631.png') center repeat-x;
+            background-size: contain;
+            margin: 15px 0;
         }
 
-        /* Sectiuni / Pagini */
-        .page-section {
-            display: none; /* Ascunse initial */
-            max-width: 1000px;
-            margin: 20px auto;
-            padding: 20px;
-            animation: fadeIn 0.5s;
+        /* MENIU TRADITIONAL JOS */
+        nav {
+            position: fixed; bottom: 15px; left: 15px; right: 15px;
+            background: #fff; display: flex; justify-content: space-around;
+            padding: 12px 0; border: 3px solid var(--rosu); z-index: 10001;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.3);
         }
 
-        .active-section { display: block; }
+        nav button {
+            background: none; border: none; color: var(--negru); 
+            font-size: 0.75rem; font-weight: bold; text-transform: uppercase;
+        }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        nav button i { display: block; font-size: 1.3rem; color: var(--rosu); margin-bottom: 4px; }
+        nav button.active { color: var(--albastru); border-bottom: 2px solid var(--albastru); }
 
-        /* Carduri Stil Traditonal */
-        .etno-card {
-            background: white;
-            border: 1px solid #ddd;
+        /* SECTIUNI STIL HRISOV */
+        .container { padding: 20px 30px 120px 30px; max-width: 800px; margin: 0 auto; position: relative; }
+        
+        .section { display: none; animation: fadeIn 0.6s; }
+        .section.active { display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .hrisov {
+            background: #fffaf0;
             padding: 30px;
+            border: 1px solid #d2b48c;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1), inset 0 0 50px rgba(210,180,140,0.2);
             position: relative;
-            box-shadow: 10px 10px 0px var(--rosu);
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
 
-        .etno-card::before {
-            content: "❖❖❖";
+        .hrisov::after {
+            content: "";
             position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--crem);
-            padding: 0 15px;
-            color: var(--rosu);
+            bottom: 0; left: 0; right: 0; height: 5px;
+            background: linear-gradient(90deg, var(--albastru) 33.3%, var(--galben) 33.3%, var(--galben) 66.6%, var(--rosu) 66.6%);
         }
 
-        /* Video Box */
-        .video-box {
+        h2 { font-family: 'Georgia', serif; color: var(--rosu); text-align: center; border-bottom: 1px solid #ddd; padding-bottom: 10px; }
+
+        .video-pancarta {
+            border: 10px solid #fff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            background: #000;
             position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            border: 5px solid white;
-            outline: 2px solid var(--negru-etno);
+            padding-bottom: 56.25%; height: 0;
+        }
+        .video-pancarta iframe { position: absolute; top:0; left:0; width:100%; height:100%; }
+
+        .foto-tarani {
+            width: 100%;
+            height: 150px;
+            background: url('https://culturaladuba.ro/wp-content/uploads/2020/06/61989674_2386903251368945_127083042079047680_o.jpg') center center no-repeat;
+            background-size: cover;
+            filter: grayscale(1) sepia(0.5);
+            margin: 20px 0;
+            border: 2px solid var(--rosu);
         }
 
-        .video-box iframe {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-        }
-
-        /* Pagina Contact */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .contact-item {
-            background: white;
-            padding: 20px;
-            text-align: center;
-            border: 2px dashed var(--albastru);
-        }
-
-        .contact-item i { font-size: 2em; color: var(--rosu); margin-bottom: 10px; }
-
-        footer {
-            text-align: center;
-            padding: 40px;
-            background: var(--negru-etno);
-            color: white;
-            margin-top: 50px;
+        .btn-aur {
+            display: block; background: var(--rosu); color: white !important;
+            text-align: center; padding: 15px; text-decoration: none;
+            font-weight: bold; margin-top: 20px; border: 2px solid var(--galben);
         }
     </style>
 </head>
 <body>
 
-<div class="ie-border"></div>
+<div class="page-border"></div>
 
 <header>
-    <div class="logo-area">
-        <h1>DUMITRU-OVIDIU PASCU</h1>
-        <div class="motif-separator">🪡🪡🪡</div>
-        <p style="color: var(--albastru); font-weight: bold;">TEZAUR • FOLCLOR • TRADIȚIE</p>
-    </div>
+    <div class="titlu-vechi">Dumitru-Ovidiu Pascu</div>
+    <div class="coloana"></div>
+    <div style="font-weight: bold; letter-spacing: 5px; color: var(--albastru);">🇷🇴 ARHIVA DE FOLCLOR 🇷🇴</div>
 </header>
-
-<nav>
-    <a href="#" onclick="showPage('acasa')">Acasă</a>
-    <a href="#" onclick="showPage('biografie')">Biografie</a>
-    <a href="#" onclick="showPage('repertoar')">Video</a>
-    <a href="#" onclick="showPage('contact')">Contact</a>
-</nav>
 
 <div class="container">
     
-    <section id="acasa" class="page-section active-section">
-        <div class="etno-card">
-            <h2 style="color:var(--rosu); text-align:center;">BINE AȚI VENIT!</h2>
-            <p style="text-align:center; font-style: italic;">"Cântecul mi-e drag ca viața, și-l port în suflet pretutindeni."</p>
-            <p>Această pagină este dedicată tuturor iubitorilor de frumos, celor care simt românește și care prețuiesc moștenirea lăsată de moșii și strămoșii noștri. Aici, folclorul nu este doar muzică, este identitate.</p>
-            <center><img src="https://cdn-icons-png.flaticon.com/512/5267/5267035.png" width="100" alt="Motiv Traditional"></center>
+    <div id="acasa" class="section active">
+        <div class="foto-tarani"></div>
+        <div class="hrisov">
+            <h2>Cuvânt de Bun Venit</h2>
+            <p>Aici, la vatra cântecului străbun, timpul stă în loc. Am adunat piese de tezaur pentru a păstra vie flacăra identității noastre românești.</p>
+            <p style="text-align: center; font-style: italic;">"Cine n-are dor pe lume, nu știe ce-i viața anume."</p>
         </div>
-    </section>
+    </div>
 
-    <section id="biografie" class="page-section">
-        <div class="etno-card">
-            <h2 style="color:var(--albastru);">DIN DRAGOSTE PENTRU CÂNTEC</h2>
-            <p>Aici vom scrie povestea ta, Ovidiu. Cum ai început să cânți, cine ți-a insuflat dragostea pentru portul popular și care sunt zonele folclorice care îți sunt cele mai dragi.</p>
-            <p>Fiecare interpret are o cale, iar calea ta este marcată de respectul pentru autentic.</p>
-        </div>
-    </section>
-
-    <section id="repertoar" class="page-section">
-        <h2 style="text-align:center; color: var(--rosu);">COLECȚIA VIDEO</h2>
-        <div class="video-box">
-            <iframe src="https://www.youtube.com/embed/videoseries?list=PLU99XRyrYep3X6HGO0T9VTWMDPoPsGGhi" frameborder="0" allowfullscreen></iframe>
-        </div>
-        <p style="text-align:center; margin-top:15px;">Apasă pe butonul din dreapta sus al playerului pentru a vedea toate piesele din listă.</p>
-    </section>
-
-    <section id="contact" class="page-section">
-        <div class="contact-grid">
-            <div class="contact-item">
-                <i class="fab fa-youtube"></i>
-                <h3>YouTube</h3>
-                <p>Abonează-te la canalul oficial pentru noutăți.</p>
-                <a href="https://www.youtube.com/@Ovidiu-Pascu-RO" target="_blank" class="rosu">Vezi Canalul</a>
-            </div>
-            <div class="contact-item">
-                <i class="fas fa-envelope"></i>
-                <h3>Evenimente</h3>
-                <p>Pentru colaborări și spectacole:</p>
-                <strong>contact@ce-ai-ovidiu.online</strong>
-            </div>
-        </div>
-    </section>
-
-</div>
-
-<footer>
-    <p>© 2026 Dumitru-Ovidiu Pascu. Suflet Românesc.</p>
-    <div style="height: 4px; background: linear-gradient(90deg, var(--albastru), var(--galben), var(--rosu));"></div>
-</footer>
-
-<script>
-    function showPage(pageId) {
-        // Ascunde toate sectiunile
-        const sections = document.querySelectorAll('.page-section');
-        sections.forEach(section => {
-            section.classList.remove('active-section');
-        });
-        
-        // Arata sectiunea ceruta
-        document.getElementById(pageId).classList.add('active-section');
-        
-        // Scroll sus automat la schimbarea paginii
-        window.scrollTo(0,0);
-    }
-</script>
-
-</body>
-</html>
+    <div id="bio" class="section">
+        <div class="hrisov">
+            <h2>Din Neam în Neam</h2>
+            <p>
