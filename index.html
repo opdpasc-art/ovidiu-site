@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dumitru-Ovidiu Pascu - România Autentică</title>
+    <style>
+        :root {
+            --rosu-etno: #CC0000;
+            --albastru-mandra: #002B7F;
+            --galben-aur: #FCD116;
+            --crem-panza: #F9F7F2;
+        }
+
+        body {
+            background-color: var(--crem-panza);
+            background-image: url('https://www.transparenttextures.com/patterns/natural-linen.png'); /* Textura panza */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            color: #333;
+        }
+
+        /* Border traditional sus/jos */
+        .border-etno {
+            height: 20px;
+            background: linear-gradient(90deg, var(--rosu-etno) 25%, transparent 25%, transparent 50%, var(--albastru-mandra) 50%, var(--albastru-mandra) 75%, transparent 75%);
+            background-size: 40px 40px;
+            border-bottom: 2px solid #000;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            border-bottom: 3px double var(--rosu-etno);
+        }
+
+        h1 {
+            color: var(--rosu-etno);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            font-style: italic;
+            color: var(--albastru-mandra);
+            font-size: 1.2rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        /* Stil pentru Video */
+        .video-card {
+            background: white;
+            border: 5px solid white;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .video-card::before {
+            content: "❖";
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--crem-panza);
+            padding: 0 10px;
+            color: var(--rosu-etno);
+            font-size: 1.5rem;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .description {
+            padding: 20px;
+            text-align: center;
+            line-height: 1.6;
+            background: white;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            background: #333;
+            color: white;
+            margin-top: 50px;
+        }
+
+        .btn-youtube {
+            background-color: var(--rosu-etno);
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="border-etno"></div>
+
+<header>
+    <h1>Dumitru-Ovidiu Pascu</h1>
+    <div class="subtitle">Colțul meu de Românie Autentică 🇷🇴</div>
+</header>
+
+<div class="container">
+    
+    <div class="video-card">
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/EwF9vFPb8K4?controls=0&rel=0" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="description">
+            <h3>Piese de Tezaur</h3>
+            <p>O invitație la o călătorie sonoră în inima muzicii tradiționale. Cred cu tărie că rădăcinile și melodiile străvechi ne definesc.</p>
+        </div>
+    </div>
+
+    </div>
+
+<footer>
+    <p>Muzica populară este inima și sufletul poporului român.</p>
+    <a href="https://www.youtube.com/@Ovidiu-Pascu-RO" class="btn-youtube">Abonează-te pe YouTube</a>
+</footer>
+
+<div class="border-etno" style="border-top: 2px solid #000; border-bottom: none;"></div>
+
+</body>
+</html>
