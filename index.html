@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ro">
 <head>
@@ -180,4 +179,65 @@
             <h2 style="color:var(--rosu); text-align:center;">BINE AȚI VENIT!</h2>
             <p style="text-align:center; font-style: italic;">"Cântecul mi-e drag ca viața, și-l port în suflet pretutindeni."</p>
             <p>Această pagină este dedicată tuturor iubitorilor de frumos, celor care simt românește și care prețuiesc moștenirea lăsată de moșii și strămoșii noștri. Aici, folclorul nu este doar muzică, este identitate.</p>
-            <center><img src="https://cdn-icons-png.flaticon.com/512/5267/5267035.png" width="100" alt
+            <center><img src="https://cdn-icons-png.flaticon.com/512/5267/5267035.png" width="100" alt="Motiv Traditional"></center>
+        </div>
+    </section>
+
+    <section id="biografie" class="page-section">
+        <div class="etno-card">
+            <h2 style="color:var(--albastru);">DIN DRAGOSTE PENTRU CÂNTEC</h2>
+            <p>Aici vom scrie povestea ta, Ovidiu. Cum ai început să cânți, cine ți-a insuflat dragostea pentru portul popular și care sunt zonele folclorice care îți sunt cele mai dragi.</p>
+            <p>Fiecare interpret are o cale, iar calea ta este marcată de respectul pentru autentic.</p>
+        </div>
+    </section>
+
+    <section id="repertoar" class="page-section">
+        <h2 style="text-align:center; color: var(--rosu);">COLECȚIA VIDEO</h2>
+        <div class="video-box">
+            <iframe src="https://www.youtube.com/embed/videoseries?list=PLU99XRyrYep3X6HGO0T9VTWMDPoPsGGhi" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <p style="text-align:center; margin-top:15px;">Apasă pe butonul din dreapta sus al playerului pentru a vedea toate piesele din listă.</p>
+    </section>
+
+    <section id="contact" class="page-section">
+        <div class="contact-grid">
+            <div class="contact-item">
+                <i class="fab fa-youtube"></i>
+                <h3>YouTube</h3>
+                <p>Abonează-te la canalul oficial pentru noutăți.</p>
+                <a href="https://www.youtube.com/@Ovidiu-Pascu-RO" target="_blank" class="rosu">Vezi Canalul</a>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <h3>Evenimente</h3>
+                <p>Pentru colaborări și spectacole:</p>
+                <strong>contact@ce-ai-ovidiu.online</strong>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<footer>
+    <p>© 2026 Dumitru-Ovidiu Pascu. Suflet Românesc.</p>
+    <div style="height: 4px; background: linear-gradient(90deg, var(--albastru), var(--galben), var(--rosu));"></div>
+</footer>
+
+<script>
+    function showPage(pageId) {
+        // Ascunde toate sectiunile
+        const sections = document.querySelectorAll('.page-section');
+        sections.forEach(section => {
+            section.classList.remove('active-section');
+        });
+        
+        // Arata sectiunea ceruta
+        document.getElementById(pageId).classList.add('active-section');
+        
+        // Scroll sus automat la schimbarea paginii
+        window.scrollTo(0,0);
+    }
+</script>
+
+</body>
+</html>
