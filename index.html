@@ -230,3 +230,137 @@
         <div class="glass-panel">
             <h2 class="section-title">O Călătorie Sonoră</h2>
             <p>Acest portal digital este o invitație deschisă către inima muzicii tradiționale.</p>
+        </div>
+    </div>
+    <div id="bio" class="section">
+        <div class="glass-panel"><h2 class="section-title">Algoritmul Dorului</h2><p>Povești și semnificații ale țăranului român.</p></div>
+    </div>
+    <div id="video" class="section">
+        <div class="glass-panel" style="text-align: center;">
+            <h2 class="section-title">Tezaur Video</h2>
+            <div class="video-premium">
+                <iframe src="https://www.youtube.com/embed/videoseries?list=PLU99XRyrYep3X6HGO0T9VTWMDPoPsGGhi&playsinline=1&modestbranding=1&rel=0" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+    <div id="contact" class="section">
+        <div class="glass-panel" style="text-align: center;"><h2 class="section-title">Contact</h2><p>contact@ce-ai-ovidiu.online</p></div>
+    </div>
+</div>
+
+<nav>
+    <button onclick="navigare('acasa', this)" class="active"><i class="fas fa-home"></i>Manifest</button>
+    <button onclick="navigare('bio', this)"><i class="fas fa-seedling"></i>Viziune</button>
+    <button onclick="navigare('video', this)"><i class="fas fa-film"></i>Tezaur</button>
+    <button onclick="navigare('contact', this)"><i class="fas fa-envelope"></i>Contact</button>
+</nav>
+
+<script>
+    const istorieVizuala = {
+        1600: 'https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?auto=format&fit=crop&w=1000&q=80',
+        1700: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1000&q=80',
+        1800: 'https://images.unsplash.com/photo-1559525839-b184a4d698c7?auto=format&fit=crop&w=1000&q=80',
+        1900: 'https://images.unsplash.com/photo-1533174000273-e18f1a0b45f5?auto=format&fit=crop&w=1000&q=80',
+        2000: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1000&q=80',
+        2026: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1000&auto=format&fit=crop'
+    };
+
+    function juraSiPorneste() {
+        document.getElementById('gate-content').style.opacity = '0';
+        
+        setTimeout(() => {
+            document.getElementById('gate-content').style.display = 'none';
+            
+            const openedBook = document.getElementById('opened-book');
+            openedBook.style.display = 'flex';
+            
+            setTimeout(() => { openedBook.style.opacity = '1'; }, 50);
+
+            // 10 SECUNDE CITIRE PENTRU CARTEA DESCHISĂ
+            setTimeout(() => {
+                openedBook.style.opacity = '0'; 
+                
+                setTimeout(() => {
+                    openedBook.style.display = 'none';
+                    document.getElementById('start-gate').style.display = 'none'; 
+                    
+                    const introScreen = document.getElementById('intro-screen');
+                    introScreen.style.display = 'flex';
+
+                    const audio = document.getElementById('audio-fundal');
+                    audio.volume = 0.2; 
+                    audio.play().catch(e => console.log("Eroare redare audio:", e));
+
+                    pornesteMasinaTimpului(introScreen);
+
+                }, 1500); 
+            }, 10000); // 10000 ms = 10 secunde
+
+        }, 1000); 
+    }
+
+    function pornesteMasinaTimpului(introScreen) {
+        const introBg = document.getElementById('intro-bg');
+        const yearElement = document.getElementById('intro-year');
+        const textElement = document.getElementById('intro-text');
+
+        introBg.style.backgroundImage = `url('${istorieVizuala[1600]}')`;
+
+        let anCurent = 1600;
+        const tinte = [1700, 1800, 1900, 2000, 2026];
+        let indexTinta = 0;
+        let isPaused = false;
+        
+        let ceas = setInterval(() => {
+            if (isPaused) return; 
+            
+            anCurent += 2; 
+            yearElement.innerText = anCurent;
+
+            if (anCurent >= tinte[indexTinta]) {
+                anCurent = tinte[indexTinta]; 
+                yearElement.innerText = anCurent;
+                isPaused = true; 
+
+                introBg.style.backgroundImage = `url('${istorieVizuala[anCurent]}')`;
+                yearElement.classList.add('zoom-effect');
+
+                if (anCurent === 2026) {
+                    introScreen.classList.add('modern-era');
+                    textElement.style.opacity = '0';
+                    setTimeout(() => {
+                        textElement.innerHTML = "Lăutarul AI aduce tribut muzicii străbune.<br>Tradiția devine nemuritoare.";
+                        textElement.style.opacity = '1';
+                    }, 500);
+
+                    setTimeout(() => {
+                        introScreen.style.opacity = '0';
+                        setTimeout(() => {
+                            introScreen.style.display = 'none';
+                            document.body.style.overflow = 'auto';
+                        }, 1500);
+                    }, 4000);
+                    clearInterval(ceas);
+                    return;
+                }
+
+                setTimeout(() => {
+                    yearElement.classList.remove('zoom-effect');
+                    isPaused = false;
+                    indexTinta++;
+                }, 1000); 
+            }
+        }, 40); 
+    }
+
+    function navigare(id, element) {
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+        element.classList.add('active');
+        window.scrollTo(0,0);
+    }
+</script>
+
+</body>
+</html>
