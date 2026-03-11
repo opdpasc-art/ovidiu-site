@@ -11,48 +11,46 @@
     <style>
         :root { --rosu: #C8102E; --albastru: #002366; --aur: #F1C40F; }
 
-        /* INTRO CINEMATIC REGLAT PENTRU POZE DIFERITE */
-        #intro-screen {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; z-index: 999999; display: none;
-            flex-direction: column; justify-content: center; align-items: center;
-            overflow: hidden;
-        }
-
-        #intro-bg {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-size: cover; /* Rezolvă problema dimensiunilor diferite */
-            background-position: center;
-            opacity: 0.4; z-index: -3;
-            filter: grayscale(60%) sepia(30%);
-            transition: background-image 0.5s ease;
-        }
-
-        /* EFECT DE PELICULĂ VECHE */
-        .film-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: 
-                linear-gradient(90deg, #000 0%, transparent 15%, transparent 85%, #000 100%),
-                repeating-linear-gradient(0deg, transparent 0px, transparent 40px, rgba(255,255,255,0.1) 41px);
-            z-index: -1; pointer-events: none;
-        }
-
-        #intro-year {
-            font-size: 7rem; font-weight: bold; color: #f4e4bc;
-            font-family: 'Courier New', monospace;
-            text-shadow: 0 0 20px #000;
-        }
-
-        /* JURĂMÂNT */
+        /* JURĂMÂNT - REPOZIȚIONARE */
         #start-gate {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; z-index: 9999999;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            background: radial-gradient(circle, #1a1a1a 0%, #000000 100%); z-index: 9999999;
+            display: flex; flex-direction: column; justify-content: flex-start; align-items: center;
             cursor: pointer; color: #d2b48c; text-align: center; font-family: 'Georgia', serif;
+            padding-top: 5vh; /* Împinge totul mai sus */
         }
 
-        .biblia { width: 300px; height: auto; transition: 0.5s; filter: sepia(0.5); }
-        #start-gate:hover .biblia { transform: scale(1.05); filter: sepia(0); box-shadow: 0 0 30px var(--aur); }
+        #gate-content {
+            display: flex; flex-direction: column; align-items: center;
+            width: 100%; max-width: 800px;
+        }
+
+        .titlu-juramant {
+            font-size: 2.2rem; letter-spacing: 5px; text-transform: uppercase;
+            margin-bottom: 10px; color: var(--aur);
+            background: rgba(0,0,0,0.4); padding: 10px 20px; border-radius: 10px;
+        }
+
+        .text-juramant {
+            font-size: 1.2rem; font-style: italic; max-width: 600px;
+            line-height: 1.6; margin-bottom: 20px; color: #f4e4bc;
+            background: rgba(0,0,0,0.4); padding: 10px 20px; border-radius: 10px;
+        }
+
+        .biblia { 
+            height: 45vh; /* Se reglează automat în funcție de înălțimea ecranului */
+            width: auto; max-width: 90vw;
+            border-radius: 8px; transition: 0.5s; filter: sepia(0.5);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.9);
+        }
+        #start-gate:hover .biblia { transform: scale(1.03); filter: sepia(0); box-shadow: 0 0 50px var(--aur); }
+
+        .instructiune-juramant {
+            margin-top: 20px; font-size: 1rem; color: var(--aur);
+            text-transform: uppercase; letter-spacing: 2px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
 
         /* CARTE MIORIȚA */
         #opened-book {
@@ -61,19 +59,37 @@
             display: none; opacity: 0; transition: 1.5s; z-index: 10;
             flex-direction: row; box-shadow: inset 0 0 200px #000;
         }
-
         .page { flex: 1; padding: 40px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        .aromanian { font-family: 'EB Garamond', serif; font-size: 2rem; font-style: italic; color: #2e1a0f; }
+        .aromanian { font-family: 'EB Garamond', serif; font-size: 2.2rem; font-style: italic; color: #2e1a0f; text-align: center; }
 
         @media (max-width: 768px) {
             #opened-book { flex-direction: column; }
-            .aromanian { font-size: 1.2rem; }
-            #intro-year { font-size: 4rem; }
+            .aromanian { font-size: 1.3rem; }
+            .titlu-juramant { font-size: 1.5rem; }
+            .biblia { height: 40vh; }
         }
 
-        /* SITE */
-        body { margin: 0; background: #f9f6f0; font-family: sans-serif; }
-        header { text-align: center; padding: 50px; color: var(--rosu); }
+        /* INTRO CINEMATIC */
+        #intro-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 999999; display: none;
+            flex-direction: column; justify-content: center; align-items: center;
+            overflow: hidden;
+        }
+        #intro-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover; background-position: center;
+            opacity: 0.4; z-index: -3; filter: grayscale(60%) sepia(30%);
+        }
+        #intro-year { font-size: 7rem; font-weight: bold; color: #f4e4bc; font-family: 'Courier New', monospace; }
+
+        /* SITE STYLES */
+        body { margin: 0; background: #f9f6f0; font-family: 'Segoe UI', sans-serif; }
+        header { text-align: center; padding: 50px; color: var(--rosu); border-bottom: 2px solid var(--aur); }
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; padding-bottom: 100px; }
+        nav { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: white; padding: 10px 30px; border-radius: 50px; display: flex; gap: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); z-index: 1000; }
+        nav button { border: none; background: none; cursor: pointer; color: #666; font-weight: bold; }
+        nav button.active { color: var(--rosu); }
     </style>
 </head>
 <body>
@@ -81,32 +97,52 @@
 <audio id="audio-fundal" src="muzica_intro.mp3"></audio>
 
 <div id="start-gate" onclick="juraSiPorneste()">
-    <h2>JURĂMÂNTUL TRADIȚIEI</h2>
-    <p>Atinge Biblia pentru a păstra tezaurul...</p>
-    <img src="biblia-veche.jpg" class="biblia">
+    <div id="gate-content">
+        <h2 class="titlu-juramant">JURĂMÂNTUL TRADIȚIEI</h2>
+        <p class="text-juramant">„Înainte de a păși în acest tezaur, jură să respecți, să păstrezi și să dai mai departe moștenirea sfântă a neamului românesc.”</p>
+        <img src="biblia-veche.jpg" class="biblia">
+        <div class="instructiune-juramant">Atinge Biblia pentru a jura</div>
+    </div>
 </div>
 
 <div id="opened-book">
     <div class="page" style="border-right: 1px solid rgba(0,0,0,0.2)">
-        <h3 style="font-family: 'Cinzel';">MIORIȚA</h3>
-        <p class="aromanian">Pe-un picior de plai,<br>Pe-o gură de rai...</p>
+        <h3 style="font-family: 'Cinzel'; color: #3a1d09;">MIORIȚA</h3>
+        <p class="aromanian">Pe-un picior de plai,<br>Pe-o gură de rai,<br>Iată vin în cale,<br>Se cobor la vale,<br>Trei turme de miei,<br>Cu trei ciobănei.</p>
     </div>
     <div class="page">
-        <h3 style="font-family: 'Cinzel';">MIORITSEA</h3>
-        <p class="aromanian">Pi-un cicioar di plai,<br>Pi-unã gurã di rai...</p>
+        <h3 style="font-family: 'Cinzel'; color: #3a1d09;">MIORITSEA</h3>
+        <p class="aromanian">Pi-un cicioar di plai,<br>Pi-unã gurã di rai,<br>Iaca yinu n-cali,<br>S-dipunu la vali,<br>Trei turmi di njelji,<br>Cu trei picurarlji.</p>
     </div>
 </div>
 
 <div id="intro-screen">
     <div id="intro-bg"></div>
-    <div class="film-overlay"></div>
     <div id="intro-year">1600</div>
 </div>
 
 <header>
-    <h1>DUMITRU-OVIDIU PASCU</h1>
+    <h1 style="font-family: 'Cinzel';">DUMITRU-OVIDIU PASCU</h1>
     <p>TRADIȚIE • INOVAȚIE • COVURLUI</p>
 </header>
+
+<div class="container">
+    <div id="acasa" class="section active">
+        <h2>Bun venit!</h2>
+        <p>Acest portal este o punte între trecut și viitor.</p>
+    </div>
+    <div id="video" class="section" style="display:none">
+        <h2>Tezaur Video</h2>
+        <div class="video-premium">
+            <iframe width="100%" height="315" src="https://www.youtube.com/embed/videoseries?list=PLU99XRyrYep3X6HGO0T9VTWMDPoPsGGhi" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+</div>
+
+<nav>
+    <button onclick="navigare('acasa', this)" class="active">VATRĂ</button>
+    <button onclick="navigare('video', this)">CÂNTECE</button>
+</nav>
 
 <script>
     const istorieVizuala = {
@@ -128,7 +164,7 @@
                     book.style.display = 'none';
                     pornesteCinema();
                 }, 1500);
-            }, 10000); // 10 secunde de citit
+            }, 10000); 
         }, 1000);
     }
 
@@ -152,22 +188,30 @@
         let counter = setInterval(() => {
             an += 2;
             yr.innerText = an;
-
             if (an >= tinte[i]) {
                 an = tinte[i];
                 yr.innerText = an;
                 bg.style.backgroundImage = `url('${istorieVizuala[an]}')`;
-                
                 if (an === 2026) {
                     clearInterval(counter);
                     setTimeout(() => {
                         intro.style.opacity = '0';
-                        setTimeout(() => intro.style.display = 'none', 1500);
+                        setTimeout(() => {
+                            intro.style.display = 'none';
+                            document.body.style.overflow = 'auto';
+                        }, 1500);
                     }, 3000);
                 }
                 i++;
             }
         }, 40);
+    }
+
+    function navigare(id, btn) {
+        document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+        document.getElementById(id).style.display = 'block';
+        document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
     }
 </script>
 </body>
