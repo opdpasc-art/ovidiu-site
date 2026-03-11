@@ -16,18 +16,22 @@
         #site-wrapper { visibility: hidden; opacity: 0; transition: opacity 1.5s ease; position: relative; z-index: 1; }
         .intro-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 5000; transition: opacity 1s ease; }
 
-        /* 1. JURAMANT */
+        /* 1. JURAMANT (STATIC) */
         #start-gate { background: #000; display: flex; flex-direction: column; justify-content: center; align-items: center; color: #d2b48c; text-align: center; cursor: pointer; z-index: 5005; }
         .biblia { height: 45vh; width: auto; max-width: 90vw; border-radius: 10px; box-shadow: 0 0 50px #000; transition: 0.5s; }
 
-        /* 2. MIORITA */
-        #opened-book { background: #ba8c59; background-image: radial-gradient(ellipse at center, rgba(0,0,0,0) 30%, rgba(0,0,0,0.9) 100%), url('https://www.transparenttextures.com/patterns/parchment.png'); display: none; z-index: 5004; flex-direction: row; }
+        /* 1.5 VIDEO-UL CU BIBLIA CARE SE DESCHIDE */
+        #video-gate { background: #000; display: none; z-index: 5004; justify-content: center; align-items: center; }
+        #biblie-video { width: 100%; height: 100%; object-fit: cover; }
+
+        /* 2. MIORITA (PAGINA STATICA DE CITIT) */
+        #opened-book { background: #ba8c59; background-image: radial-gradient(ellipse at center, rgba(0,0,0,0) 30%, rgba(0,0,0,0.9) 100%), url('https://www.transparenttextures.com/patterns/parchment.png'); display: none; z-index: 5003; flex-direction: row; }
         .book-page { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px; text-align: center; }
         .left-page { border-right: 2px solid rgba(0,0,0,0.1); }
         .aromanian-text { font-family: 'EB Garamond', serif; font-size: 2.2rem; color: #211005; font-style: italic; line-height: 1.4; }
 
         /* 3. CINEMA */
-        #intro-screen { background: #000; display: none; overflow: hidden; z-index: 5003; }
+        #intro-screen { background: #000; display: none; overflow: hidden; z-index: 5002; }
         .film-perforations { position: absolute; width: 200%; height: 40px; background-image: repeating-linear-gradient(90deg, #fff 0, #fff 30px, transparent 30px, transparent 60px); opacity: 0.2; z-index: 100; animation: moveStrip 2s linear infinite; }
         .perf-top { top: 8vh; } .perf-bottom { bottom: 8vh; }
         @keyframes moveStrip { from { transform: translateX(0); } to { transform: translateX(-60px); } }
@@ -39,27 +43,15 @@
         .zoom-effect { animation: heartbeat 1.8s ease-in-out; }
         @keyframes heartbeat { 0% { transform: scale(1); } 50% { transform: scale(1.6); color: var(--aur); } 100% { transform: scale(1); } }
 
-        /* 4. TELEVIZOR DIAMANT */
+        /* 4. TELEVIZOR DIAMANT (FUNCTIONAL!) */
         #tv-wrapper { position: relative; width: 100%; max-width: 650px; margin: 0 auto; padding: 30px; background: var(--lemn); border-radius: 15px; border: 8px solid #3a2212; box-shadow: 0 20px 50px #000; }
         #tv-screen-area { background: #000; border-radius: 30px; padding: 10px; border: 4px solid #1a1a1a; overflow: hidden; box-shadow: inset 0 0 50px #000; }
         .sigla-diamant { position: absolute; bottom: 10px; right: 35px; font-family: 'Orbitron', sans-serif; font-size: 1rem; color: #ccc; letter-spacing: 2px; text-shadow: 1px 1px 0 #fff; }
+        .logo-electronica { position: absolute; top: 15px; left: 35px; width: 22px; height: 22px; border: 1px solid #ccc; border-radius: 50%; color: #ccc; font-style: italic; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; font-family: serif; font-weight: bold; }
         
-        /* FIX-UL MAGIC PENTRU YOUTUBE (Ca sa nu mai fie o linie subtire) */
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%; /* Raport 16:9 */
-            height: 0;
-            overflow: hidden;
-            background: #000;
-            border-radius: 15px;
-        }
-        .video-container iframe, .video-container #player {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
+        /* Containerul magic pentru video care mentine proportiile */
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000; border-radius: 15px; }
+        .video-container iframe, .video-container #player { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
         /* 5. PICK-UP */
         #pickup-wrapper { width: 280px; height: 300px; background: #222; margin: 20px auto; border-radius: 10px; border: 6px solid var(--lemn); position: relative; }
@@ -115,6 +107,7 @@
 
             <div id="tezaur-video">
                 <div id="tv-wrapper">
+                    <div class="logo-electronica">e</div>
                     <div class="sigla-diamant">DIAMANT</div>
                     <div id="tv-screen-area">
                         <div class="video-container">
@@ -157,6 +150,10 @@
     <p style="margin-top:20px; font-family:serif; font-style:italic; color:#d2b48c;">Atinge Cartea pentru a jura</p>
 </div>
 
+<div id="video-gate" class="intro-layer">
+    <video id="biblie-video" src="biblie.mp4" playsinline></video>
+</div>
+
 <div id="opened-book" class="intro-layer">
     <div class="book-page left-page">
         <h3 style="font-family:'Cinzel'; border-bottom:1px solid #000; margin-bottom:15px;">Miorița (Română)</h3>
@@ -187,6 +184,7 @@
 <script src="https://www.youtube.com/iframe_api"></script>
 
 <script>
+    // TEXT CURGATOR
     let titluText = "Dumitru-Ovidiu Pascu - Tezaur Folcloric Digital - Tradiție și Inovație - ";
     function scrollTitle() {
         document.title = titluText;
@@ -204,33 +202,52 @@
     function onYouTubeIframeAPIReady() {
         ytPlayer = new YT.Player('player', {
             videoId: 'igO7mRq32_4', 
-            playerVars: { 
-                listType: 'playlist', 
-                list: 'PLU99XRyrYep3X6HGO0T9VTWMDPoPsGGhi', 
-                rel: 0, 
-                playsinline: 1 
-            },
-            events: { 
-                'onStateChange': (e) => { if (e.data == YT.PlayerState.PLAYING) audio.pause(); } 
-            }
+            playerVars: { listType: 'playlist', list: 'PLU99XRyrYep3X6HGO0T9VTWMDPoPsGGhi', rel: 0, playsinline: 1 },
+            events: { 'onStateChange': (e) => { if (e.data == YT.PlayerState.PLAYING) audio.pause(); } }
         });
     }
 
+    // LOGICA DE PORNIRE (CU VIDEO MP4 NOU)
     function juraSiPorneste() {
         if(aJuratDeja) return; aJuratDeja = true;
-        document.getElementById('start-gate').style.opacity = '0';
+        
+        const startGate = document.getElementById('start-gate');
+        const videoGate = document.getElementById('video-gate');
+        const biblieVideo = document.getElementById('biblie-video');
+        const book = document.getElementById('opened-book');
+
+        // Ascundem Juramantul
+        startGate.style.opacity = '0';
+        
         setTimeout(() => {
-            document.getElementById('start-gate').style.display = 'none';
-            const book = document.getElementById('opened-book');
-            book.style.display = 'flex';
-            setTimeout(() => book.style.opacity = '1', 50);
-            setTimeout(() => {
-                book.style.opacity = '0';
-                setTimeout(() => { book.style.display = 'none'; pornesteCinema(); }, 1500);
-            }, 10000); 
-        }, 1000);
+            startGate.style.display = 'none';
+            
+            // Afisam si pornim Video-ul tau
+            videoGate.style.display = 'flex';
+            biblieVideo.play().catch(e => console.log("Eroare redare video: ", e));
+
+            // Ce se intampla cand se termina video-ul
+            biblieVideo.onended = () => {
+                videoGate.style.opacity = '0';
+                
+                setTimeout(() => {
+                    videoGate.style.display = 'none';
+                    
+                    // Afisam Cartea statica pentru a fi citita (10 secunde)
+                    book.style.display = 'flex';
+                    setTimeout(() => book.style.opacity = '1', 50);
+
+                    setTimeout(() => {
+                        book.style.opacity = '0';
+                        setTimeout(() => { book.style.display = 'none'; pornesteCinema(); }, 1500);
+                    }, 10000); 
+
+                }, 1000); // fade out video
+            };
+        }, 1000); // fade out juramant
     }
 
+    // NUMARATOARE CINEMA
     function pornesteCinema() {
         const intro = document.getElementById('intro-screen');
         const strip = document.getElementById('film-strip');
@@ -265,6 +282,7 @@
         }, 40);
     }
 
+    // BUTOANE TEZAUR
     function switchTezaur(type) {
         ['video', 'audio', 'foto'].forEach(t => { 
             document.getElementById('tezaur-' + t).style.display = 'none';
