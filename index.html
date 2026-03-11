@@ -25,43 +25,65 @@
         }
 
         /* ------------------------------------------- */
-        /* MAGIA INTRO-ULUI CINEMATIC (1600 - 2026)    */
+        /* INTRO CINEMATOGRAFIC CU PELICULA            */
         /* ------------------------------------------- */
         #intro-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #120a00; /* Intuneric sepia de la 1600 */
-            z-index: 999999;
+            background: #050505; z-index: 999999;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            color: #d2b48c; font-family: 'Georgia', serif;
-            transition: opacity 1.5s ease-out, background-color 2s ease;
+            color: #f4e4bc; font-family: 'Georgia', serif;
+            transition: opacity 1.5s ease-out;
             text-align: center; padding: 20px;
+            overflow: hidden;
+        }
+
+        /* Fundalul care se va schimba ca o rola de film */
+        #intro-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover; background-position: center;
+            opacity: 0.35; z-index: -2;
+            transition: background-image 0.8s ease-in-out;
+            filter: grayscale(80%) sepia(40%); /* Aspect de poza veche */
+        }
+
+        /* Margini intunecate ca la cinema */
+        #intro-vignette {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            box-shadow: inset 0 0 150px rgba(0,0,0,0.9);
+            z-index: -1; pointer-events: none;
         }
 
         #intro-year {
-            font-size: 5rem; font-weight: bold; margin-bottom: 20px;
+            font-size: 6rem; font-weight: bold; margin-bottom: 20px;
             font-family: 'Courier New', Courier, monospace;
-            text-shadow: 0 0 15px rgba(210, 180, 140, 0.5);
-            transition: color 1s ease, text-shadow 1s ease;
+            text-shadow: 0 5px 25px rgba(0, 0, 0, 0.8);
+            transition: color 1s ease, text-shadow 1s ease, transform 0.2s;
+            z-index: 10;
         }
 
         #intro-text {
             font-size: 1.5rem; font-style: italic; max-width: 600px;
             line-height: 1.5; transition: opacity 0.5s ease;
+            text-shadow: 0 2px 10px rgba(0,0,0,1);
+            z-index: 10;
         }
 
         #intro-icon {
             font-size: 4rem; margin-top: 30px;
             transition: opacity 0.5s ease, transform 1s ease;
+            text-shadow: 0 2px 10px rgba(0,0,0,1);
+            z-index: 10;
         }
 
-        /* Starea cand ajunge in anul 2026 */
-        #intro-screen.modern-era {
-            background-color: var(--albastru-cobalt);
-            color: white;
+        /* Cand ajunge in era AI (2026) */
+        #intro-screen.modern-era #intro-bg {
+            filter: grayscale(0%) hue-rotate(180deg) brightness(1.2); /* Aspect digital albastrui */
+            opacity: 0.6;
         }
         #intro-screen.modern-era #intro-year {
             color: var(--auriu-grau);
-            text-shadow: 0 0 30px var(--auriu-grau);
+            text-shadow: 0 0 40px var(--auriu-grau);
+            transform: scale(1.1);
         }
         /* ------------------------------------------- */
 
@@ -76,10 +98,9 @@
             background-size: 40px 40px, auto;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0; padding: 0; color: #2c3e50; line-height: 1.8;
-            overflow: hidden; /* Blocam scroll-ul cat timp ruleaza introul */
+            overflow: hidden; 
         }
 
-        /* Restul stilurilor site-ului tau */
         .glass-panel {
             background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.8); border-top: 4px solid var(--rosu-sange);
@@ -165,6 +186,8 @@
 <body>
 
 <div id="intro-screen">
+    <div id="intro-bg"></div>
+    <div id="intro-vignette"></div>
     <div id="intro-year">1600</div>
     <div id="intro-text">Cântecul se naște din pământ, dor și vânt...</div>
     <div id="intro-icon"><i class="fas fa-seedling"></i></div>
@@ -183,7 +206,6 @@
 </header>
 
 <div class="container">
-    
     <div id="acasa" class="section active">
         <div class="glass-panel">
             <h2 class="section-title">O Călătorie Sonoră</h2>
@@ -230,7 +252,6 @@
             </p>
         </div>
     </div>
-
 </div>
 
 <nav>
@@ -242,29 +263,49 @@
 
 <script>
     // ----------------------------------------------------
-    // MOTORUL PENTRU POVESTEA GRAFICA (INTRO SCENE)
+    // MOTORUL PENTRU BANDA CINEMATOGRAFICA 
     // ----------------------------------------------------
     document.addEventListener("DOMContentLoaded", () => {
         const introScreen = document.getElementById('intro-screen');
+        const introBg = document.getElementById('intro-bg');
         const yearElement = document.getElementById('intro-year');
         const textElement = document.getElementById('intro-text');
         const iconElement = document.getElementById('intro-icon');
 
+        // Baza de date cu imagini pentru fiecare epoca
+        const istorieVizuala = [
+            { an: 1600, img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Theodor_Aman_-_Hora_de_la_Aninoasa.jpg/1024px-Theodor_Aman_-_Hora_de_la_Aninoasa.jpg' }, // Hora taraneasca tablou
+            { an: 1850, img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Nicolae_Grigorescu_-_Car_cu_boi_%281%29.jpg/1024px-Nicolae_Grigorescu_-_Car_cu_boi_%281%29.jpg' }, // Car cu boi Grigorescu
+            { an: 1920, img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Romanian_peasants_from_Bessarabia.jpg/800px-Romanian_peasants_from_Bessarabia.jpg' }, // Poza de arhiva sat romanesc
+            { an: 1980, img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Ansamblul_Folcloric_National_Transilvania.jpg/800px-Ansamblul_Folcloric_National_Transilvania.jpg' }, // Ansamblu folcloric scena
+            { an: 2026, img: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1000&auto=format&fit=crop' } // Concept Tech/AI/Digital
+        ];
+
         let anCurent = 1600;
         const anFinal = 2026;
-        const durataAnilor = 3000; // Cati milisecunde dureaza numaratoarea (3 secunde)
-        const pasTimp = 50; // Update la fiecare 50ms
+        const durataAnilor = 3500; // 3.5 secunde pentru toata calatoria
+        const pasTimp = 50; 
         const increment = (anFinal - anCurent) / (durataAnilor / pasTimp);
+
+        // Setam imaginea de start
+        introBg.style.backgroundImage = `url('${istorieVizuala[0].img}')`;
 
         let counter = setInterval(() => {
             anCurent += increment;
             
-            // Cand ajungem in 2026
+            // Verificam ce imagine trebuie afisata in functie de an
+            let imagineActuala = istorieVizuala.slice().reverse().find(ep => anCurent >= ep.an).img;
+            
+            // Daca imaginea s-a schimbat fata de anul trecut, o actualizam in fundal
+            if(introBg.style.backgroundImage !== `url("${imagineActuala}")` && introBg.style.backgroundImage !== `url('${imagineActuala}')`) {
+                introBg.style.backgroundImage = `url('${imagineActuala}')`;
+            }
+
+            // Cand ajungem in 2026 (Finalul calatoriei)
             if (anCurent >= anFinal) {
                 anCurent = anFinal;
                 clearInterval(counter);
                 
-                // Schimbam aspectul in Era Digitala/AI
                 introScreen.classList.add('modern-era');
                 textElement.style.opacity = '0';
                 iconElement.style.opacity = '0';
@@ -276,14 +317,13 @@
                     iconElement.style.opacity = '1';
                 }, 500);
 
-                // Dupa inca 3 secunde de afisare a mesajului final, ascundem introul
                 setTimeout(() => {
                     introScreen.style.opacity = '0';
                     setTimeout(() => {
                         introScreen.style.display = 'none';
-                        document.body.style.overflow = 'auto'; // Reactivam scroll-ul site-ului
-                    }, 1500); // Timpul cat dureaza sa se evaporeza ecranul
-                }, 3500);
+                        document.body.style.overflow = 'auto'; 
+                    }, 1500); 
+                }, 4000); // Lasa mesajul final sa stea 4 secunde pe ecran
             }
             
             yearElement.innerText = Math.floor(anCurent);
@@ -291,7 +331,7 @@
     });
 
     // ----------------------------------------------------
-    // NAVIGATIE + SCROLLING TITLE
+    // NAVIGATIE
     // ----------------------------------------------------
     function navigare(id, element) {
         document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
@@ -302,7 +342,6 @@
     }
 
     let titluRulant = " 🟦🟨🟥 Glasul Dunării (Galați) • Dumitru-Ovidiu Pascu • Tezaur Folcloric • 🟦🟨🟥 • Viitorul Tradiției • ✨ ";
-    
     function miscaTitlul() {
         titluRulant = titluRulant.substring(1) + titluRulant.substring(0, 1);
         document.title = titluRulant;
