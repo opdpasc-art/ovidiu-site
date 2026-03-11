@@ -4,12 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <meta name="theme-color" content="#C8102E">
+    <meta name="theme-color" content="#050505">
     <meta property="og:title" content="Dumitru-Ovidiu Pascu - Tezaur Folcloric">
-    <meta property="og:description" content="Descoperă muzica autentică și tradiția românească din zona Covurluiului.">
+    <meta property="og:description" content="Descoperă muzica autentică și tradiția românească.">
     <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Romanian_blouse_%28ie%29_from_Muscel.jpg/800px-Romanian_blouse_%28ie%29_from_Muscel.jpg">
-    <meta property="og:url" content="https://ce-ai-ovidiu.online">
-    <meta property="og:type" content="website">
 
     <title>Dumitru-Ovidiu Pascu - Viitorul Tradiției</title>
     
@@ -17,167 +15,104 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        :root { 
-            --rosu-sange: #C8102E; 
-            --albastru-cobalt: #002366; 
-            --auriu-grau: #F1C40F; 
-            --fundal-in: #F9F6F0;
+        :root { --rosu-sange: #C8102E; --albastru-cobalt: #002366; --auriu-grau: #F1C40F; --fundal-in: #F9F6F0; }
+
+        /* ------------------------------------------- */
+        /* POARTA DE INTRARE: JURĂMÂNTUL PE BIBLIE     */
+        /* ------------------------------------------- */
+        #start-gate {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, #1a1a1a 0%, #000000 100%); z-index: 9999999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            color: #d2b48c; font-family: 'Georgia', serif; text-align: center;
+            transition: opacity 1.5s ease;
+        }
+
+        .titlu-juramant {
+            font-size: 2rem; letter-spacing: 5px; text-transform: uppercase;
+            margin-bottom: 20px; text-shadow: 0 0 15px rgba(210, 180, 140, 0.3);
+        }
+
+        .text-juramant {
+            font-size: 1.2rem; font-style: italic; max-width: 600px; padding: 0 20px;
+            margin-bottom: 40px; line-height: 1.6; opacity: 0.9;
+        }
+
+        .biblia {
+            width: 180px; height: auto;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 20px rgba(241, 196, 15, 0.1);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            filter: grayscale(30%) sepia(20%);
+        }
+
+        .biblia:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.9), 0 0 40px rgba(241, 196, 15, 0.6);
+            filter: grayscale(0%) sepia(0%) brightness(1.2);
+        }
+
+        @keyframes pulseText { 0% { opacity: 0.4; } 50% { opacity: 1; text-shadow: 0 0 10px #F1C40F; } 100% { opacity: 0.4; } }
+        .instructiune-juramant {
+            margin-top: 25px; font-size: 0.9rem; font-family: 'Courier New', Courier, monospace;
+            color: var(--auriu-grau); animation: pulseText 2s infinite; text-transform: uppercase;
         }
 
         /* ------------------------------------------- */
-        /* INTRO CINEMATOGRAFIC CU PELICULA            */
+        /* INTRO CINEMATOGRAFIC                        */
         /* ------------------------------------------- */
         #intro-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #050505; z-index: 999999;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            color: #f4e4bc; font-family: 'Georgia', serif;
+            background: #050505; z-index: 999999; display: none;
+            flex-direction: column; justify-content: center; align-items: center;
+            color: #f4e4bc; font-family: 'Georgia', serif; text-align: center; overflow: hidden;
             transition: opacity 1.5s ease-out;
-            text-align: center; padding: 20px;
-            overflow: hidden;
         }
 
-        /* Fundalul care se va schimba ca o rola de film */
         #intro-bg {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background-size: cover; background-position: center;
-            opacity: 0.35; z-index: -2;
-            transition: background-image 0.8s ease-in-out;
-            filter: grayscale(80%) sepia(40%); /* Aspect de poza veche */
-        }
-
-        /* Margini intunecate ca la cinema */
-        #intro-vignette {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            box-shadow: inset 0 0 150px rgba(0,0,0,0.9);
-            z-index: -1; pointer-events: none;
+            opacity: 0.35; z-index: -2; transition: background-image 1s ease-in-out;
+            filter: grayscale(80%) sepia(40%);
         }
 
         #intro-year {
             font-size: 6rem; font-weight: bold; margin-bottom: 20px;
-            font-family: 'Courier New', Courier, monospace;
-            text-shadow: 0 5px 25px rgba(0, 0, 0, 0.8);
-            transition: color 1s ease, text-shadow 1s ease, transform 0.2s;
-            z-index: 10;
+            font-family: 'Courier New', Courier, monospace; text-shadow: 0 5px 25px rgba(0, 0, 0, 0.8);
+            z-index: 10; display: inline-block;
         }
 
-        #intro-text {
-            font-size: 1.5rem; font-style: italic; max-width: 600px;
-            line-height: 1.5; transition: opacity 0.5s ease;
-            text-shadow: 0 2px 10px rgba(0,0,0,1);
-            z-index: 10;
+        @keyframes heartbeatZoom {
+            0% { transform: scale(1); color: #f4e4bc; }
+            50% { transform: scale(1.6); color: var(--auriu-grau); text-shadow: 0 0 50px var(--auriu-grau); }
+            100% { transform: scale(1); color: #f4e4bc; }
         }
+        .zoom-effect { animation: heartbeatZoom 1s ease-in-out; }
 
-        #intro-icon {
-            font-size: 4rem; margin-top: 30px;
-            transition: opacity 0.5s ease, transform 1s ease;
-            text-shadow: 0 2px 10px rgba(0,0,0,1);
-            z-index: 10;
-        }
-
-        /* Cand ajunge in era AI (2026) */
-        #intro-screen.modern-era #intro-bg {
-            filter: grayscale(0%) hue-rotate(180deg) brightness(1.2); /* Aspect digital albastrui */
-            opacity: 0.6;
-        }
-        #intro-screen.modern-era #intro-year {
-            color: var(--auriu-grau);
-            text-shadow: 0 0 40px var(--auriu-grau);
-            transform: scale(1.1);
-        }
-        /* ------------------------------------------- */
-
-        ::selection { background-color: var(--rosu-sange); color: var(--auriu-grau); }
-        ::-moz-selection { background-color: var(--rosu-sange); color: var(--auriu-grau); }
-
-        body { 
-            background-color: var(--fundal-in);
-            background-image: 
-                radial-gradient(rgba(0, 35, 102, 0.05) 2px, transparent 2px),
-                url('https://www.transparenttextures.com/patterns/natural-linen.png');
-            background-size: 40px 40px, auto;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0; padding: 0; color: #2c3e50; line-height: 1.8;
-            overflow: hidden; 
-        }
-
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.8); border-top: 4px solid var(--rosu-sange);
-            border-bottom: 4px solid var(--albastru-cobalt); border-radius: 15px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05); padding: 30px; margin-bottom: 30px;
-            position: relative; overflow: hidden;
-        }
-
-        .glass-panel::before {
-            content: ''; position: absolute; top: -10px; left: -10px;
-            width: 40px; height: 40px; border-radius: 50%;
-            background: radial-gradient(circle, var(--auriu-grau) 0%, transparent 70%); opacity: 0.5;
-        }
-
-        header { text-align: center; padding: 50px 20px 30px; position: relative; }
-
-        .titlu-modern {
-            font-family: 'Georgia', serif; font-size: 2.4rem; color: var(--rosu-sange);
-            text-transform: uppercase; margin: 0; letter-spacing: 2px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .subtitlu-tech {
-            font-size: 1rem; font-weight: 600; letter-spacing: 4px; color: var(--albastru-cobalt);
-            margin-top: 15px; display: flex; align-items: center; justify-content: center; gap: 10px;
-        }
-
-        .ornament-fusion {
-            text-align: center; margin: 20px 0; color: var(--auriu-grau); font-size: 1.5rem;
-            display: flex; justify-content: center; align-items: center; gap: 15px;
-        }
-        .ornament-fusion::before, .ornament-fusion::after {
-            content: ''; height: 2px; width: 50px; background: linear-gradient(90deg, transparent, var(--rosu-sange), transparent);
-        }
-
-        .container { padding: 10px 20px 120px 20px; max-width: 850px; margin: 0 auto; }
+        #intro-text { font-size: 1.5rem; font-style: italic; text-shadow: 0 2px 10px rgba(0,0,0,1); z-index: 10; transition: opacity 0.5s; }
         
+        #intro-screen.modern-era #intro-bg { filter: grayscale(0%) hue-rotate(180deg) brightness(1.2); opacity: 0.6; }
+        #intro-screen.modern-era #intro-year { color: var(--auriu-grau); text-shadow: 0 0 40px var(--auriu-grau); transform: scale(1.1); }
+
+        /* Restul Site-ului... */
+        ::selection { background-color: var(--rosu-sange); color: var(--auriu-grau); }
+        body { background-color: var(--fundal-in); background-image: radial-gradient(rgba(0, 35, 102, 0.05) 2px, transparent 2px), url('https://www.transparenttextures.com/patterns/natural-linen.png'); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; color: #2c3e50; overflow: hidden; }
+        .glass-panel { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.8); border-top: 4px solid var(--rosu-sange); border-bottom: 4px solid var(--albastru-cobalt); border-radius: 15px; box-shadow: 0 8px 32px 0 rgba(0,0,0,0.05); padding: 30px; margin-bottom: 30px; position: relative; overflow: hidden; }
+        header { text-align: center; padding: 50px 20px 30px; }
+        .titlu-modern { font-family: 'Georgia', serif; font-size: 2.4rem; color: var(--rosu-sange); text-transform: uppercase; margin: 0; letter-spacing: 2px; text-shadow: 2px 2px 4px rgba(0,0,0,0.1); }
+        .subtitlu-tech { font-size: 1rem; font-weight: 600; letter-spacing: 4px; color: var(--albastru-cobalt); margin-top: 15px; }
+        .container { padding: 10px 20px 120px 20px; max-width: 850px; margin: 0 auto; }
         .section { display: none; animation: floatUp 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
         .section.active { display: block; }
-
         @keyframes floatUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-
-        h2.section-title {
-            font-family: 'Georgia', serif; color: var(--albastru-cobalt); font-size: 1.6rem; 
-            margin-top: 0; border-bottom: 2px dashed #e0e0e0; padding-bottom: 10px;
-        }
-
-        .highlight-text {
-            font-size: 1.15rem; font-weight: 600; color: var(--rosu-sange); font-style: italic; text-align: center; margin-bottom: 20px;
-        }
-
-        .video-premium {
-            border-radius: 10px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            position: relative; padding-bottom: 56.25%; height: 0; border: 3px solid white;
-        }
+        h2.section-title { font-family: 'Georgia', serif; color: var(--albastru-cobalt); font-size: 1.6rem; border-bottom: 2px dashed #e0e0e0; padding-bottom: 10px; }
+        .video-premium { border-radius: 10px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.2); position: relative; padding-bottom: 56.25%; height: 0; border: 3px solid white; }
         .video-premium iframe { position: absolute; top:0; left:0; width:100%; height:100%; }
-
-        .btn-modern {
-            display: inline-block; background: linear-gradient(135deg, var(--rosu-sange), #a00000);
-            color: white !important; text-align: center; padding: 16px 35px;
-            text-decoration: none; font-weight: bold; border-radius: 30px; margin-top: 25px; 
-            box-shadow: 0 10px 20px rgba(200, 16, 46, 0.3); transition: all 0.3s; letter-spacing: 1px;
-        }
+        .btn-modern { display: inline-block; background: linear-gradient(135deg, var(--rosu-sange), #a00000); color: white !important; padding: 16px 35px; text-decoration: none; font-weight: bold; border-radius: 30px; margin-top: 25px; transition: all 0.3s; letter-spacing: 1px; cursor: pointer; border: none; font-size: 1.1rem; }
         .btn-modern:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(200, 16, 46, 0.4); }
-
-        nav {
-            position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.9); display: flex; justify-content: center; gap: 20px;
-            padding: 12px 25px; border-radius: 50px; z-index: 10000;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid rgba(0,0,0,0.05); backdrop-filter: blur(10px);
-        }
-
-        nav button {
-            background: none; border: none; color: #7f8c8d; font-size: 0.75rem; font-weight: bold; text-transform: uppercase;
-            display: flex; flex-direction: column; align-items: center; gap: 5px; transition: 0.3s; cursor: pointer;
-        }
-
+        nav { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.9); display: flex; justify-content: center; gap: 20px; padding: 12px 25px; border-radius: 50px; z-index: 10000; box-shadow: 0 10px 30px rgba(0,0,0,0.1); backdrop-filter: blur(10px); }
+        nav button { background: none; border: none; color: #7f8c8d; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; display: flex; flex-direction: column; align-items: center; transition: 0.3s; cursor: pointer; }
         nav button i { font-size: 1.4rem; transition: 0.3s; }
         nav button.active { color: var(--rosu-sange); }
         nav button.active i { transform: scale(1.2); color: var(--albastru-cobalt); }
@@ -185,72 +120,49 @@
 </head>
 <body>
 
+<audio id="audio-fundal" src="muzica_intro.mp3"></audio>
+
+<div id="start-gate">
+    <div class="titlu-juramant">Jurământul Tradiției</div>
+    <div class="text-juramant">„Înainte de a păși în acest tezaur, jură să respecți, să păstrezi și să dai mai departe moștenirea sfântă a neamului românesc.”</div>
+    
+    <img src="https://images.unsplash.com/photo-1544822688-c5f41d2c1972?q=80&w=600&auto=format&fit=crop" alt="Biblia" class="biblia" onclick="juraSiPorneste()">
+    
+    <div class="instructiune-juramant"><i class="fas fa-hand-pointer"></i> Pune mâna pe Carte pentru a jura</div>
+</div>
+
 <div id="intro-screen">
     <div id="intro-bg"></div>
-    <div id="intro-vignette"></div>
+    <div style="position:absolute; top:0; left:0; width:100%; height:100%; box-shadow: inset 0 0 150px rgba(0,0,0,0.9); z-index: -1;"></div>
     <div id="intro-year">1600</div>
     <div id="intro-text">Cântecul se naște din pământ, dor și vânt...</div>
-    <div id="intro-icon"><i class="fas fa-seedling"></i></div>
 </div>
 
 <header>
     <h1 class="titlu-modern">Dumitru-Ovidiu Pascu</h1>
-    <div class="ornament-fusion">
-        <i class="fab fa-pagelines"></i>
-        <i class="fas fa-network-wired" style="font-size: 1rem; opacity: 0.5;"></i>
-        <i class="fab fa-pagelines"></i>
-    </div>
-    <div class="subtitlu-tech">
-        <span>TRADIȚIE</span> • <span>INOVAȚIE</span> • <span>COVURLUI (GALAȚI)</span>
-    </div>
+    <div class="subtitlu-tech"><span>TRADIȚIE</span> • <span>INOVAȚIE</span> • <span>COVURLUI</span></div>
 </header>
 
 <div class="container">
     <div id="acasa" class="section active">
         <div class="glass-panel">
             <h2 class="section-title">O Călătorie Sonoră</h2>
-            <p class="highlight-text">„Cred cu tărie că rădăcinile și melodiile străvechi ne definesc.”</p>
-            <p>Bine ați venit! Acest portal digital este o invitație deschisă către inima muzicii tradiționale și a folclorului românesc din Galați și zona Covurluiului. Aici, moștenirea nescrisă nu este doar o amintire, ci un <strong>tezaur viu</strong>, pulsatil, pe care îl prețuim și îl aducem în prezent folosind uneltele viitorului.</p>
-            <p>Prin fuziunea dintre căldura vocii umane și puterea tehnologiei moderne, ne asigurăm că doina și balada vor răsuna puternic pentru generațiile ce vor veni.</p>
+            <p>Acest portal digital este o invitație deschisă către inima muzicii tradiționale.</p>
         </div>
     </div>
-
     <div id="bio" class="section">
-        <div class="glass-panel">
-            <h2 class="section-title">Algoritmul Dorului</h2>
-            <p>Aici nu stocăm doar fișiere video, ci <strong>povești și semnificații</strong>. Fiecare cântec poartă în el istoria, bucuria și lacrima țăranului român.</p>
-            <ul style="list-style-type: square; color: var(--rosu-sange);">
-                <li><span style="color: #2c3e50;"><strong>Piese de Tezaur:</strong> Cântece de colecție, culese cu grijă din zona Dunării de Jos.</span></li>
-                <li><span style="color: #2c3e50;"><strong>Emoție Autentică:</strong> Transmitem istoria nescrisă din spatele tradițiilor noastre.</span></li>
-            </ul>
-            <p>Muzica populară este inima și sufletul poporului român. Tehnologia este doar instrumentul prin care acest suflet este auzit mai departe, mai clar, mai puternic.</p>
-        </div>
+        <div class="glass-panel"><h2 class="section-title">Algoritmul Dorului</h2><p>Povești și semnificații ale țăranului român.</p></div>
     </div>
-
     <div id="video" class="section">
         <div class="glass-panel" style="text-align: center;">
-            <h2 class="section-title">Galerie Video Atemporală</h2>
+            <h2 class="section-title">Tezaur Video</h2>
             <div class="video-premium">
-                <iframe 
-                    src="https://www.youtube.com/embed/videoseries?list=PLU99XRyrYep3X6HGO0T9VTWMDPoPsGGhi&playsinline=1&modestbranding=1&rel=0&enablejsapi=1&origin=https://ce-ai-ovidiu.online&widget_referrer=https://ce-ai-ovidiu.online" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen>
-                </iframe>
+                <iframe src="https://www.youtube.com/embed/videoseries?list=PLU99XRyrYep3X6HGO0T9VTWMDPoPsGGhi&playsinline=1&modestbranding=1&rel=0" frameborder="0" allowfullscreen></iframe>
             </div>
-            <a href="https://www.youtube.com/@Ovidiu-Pascu-RO" class="btn-modern" target="_blank"><i class="fab fa-youtube" style="margin-right: 8px;"></i> ABONEAZĂ-TE LA CANAL</a>
         </div>
     </div>
-
     <div id="contact" class="section">
-        <div class="glass-panel" style="text-align: center;">
-            <h2 class="section-title">Conexiune Umană</h2>
-            <i class="fas fa-fingerprint" style="font-size: 3rem; color: var(--auriu-grau); margin: 15px 0;"></i>
-            <p>Sunt mereu deschis pentru a duce cântecul românesc pe marile scene, la evenimente culturale sau de suflet.</p>
-            <p style="font-size: 1.2rem; font-weight: bold; color: var(--albastru-cobalt); margin-top: 20px;">
-                contact@ce-ai-ovidiu.online
-            </p>
-        </div>
+        <div class="glass-panel" style="text-align: center;"><h2 class="section-title">Contact</h2><p>contact@ce-ai-ovidiu.online</p></div>
     </div>
 </div>
 
@@ -262,77 +174,87 @@
 </nav>
 
 <script>
-    // ----------------------------------------------------
-    // MOTORUL PENTRU BANDA CINEMATOGRAFICA 
-    // ----------------------------------------------------
-    document.addEventListener("DOMContentLoaded", () => {
-        const introScreen = document.getElementById('intro-screen');
+    const istorieVizuala = {
+        1600: 'https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?auto=format&fit=crop&w=1000&q=80',
+        1700: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1000&q=80',
+        1800: 'https://images.unsplash.com/photo-1559525839-b184a4d698c7?auto=format&fit=crop&w=1000&q=80',
+        1900: 'https://images.unsplash.com/photo-1533174000273-e18f1a0b45f5?auto=format&fit=crop&w=1000&q=80',
+        2000: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1000&q=80',
+        2026: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1000&auto=format&fit=crop'
+    };
+
+    function juraSiPorneste() {
+        const startGate = document.getElementById('start-gate');
+        startGate.style.opacity = '0';
+        
+        setTimeout(() => {
+            startGate.style.display = 'none';
+            const introScreen = document.getElementById('intro-screen');
+            introScreen.style.display = 'flex';
+
+            // MUZICA: Volum setat la 20% (0.2)
+            const audio = document.getElementById('audio-fundal');
+            audio.volume = 0.2; 
+            audio.play().catch(e => console.log("Eroare redare audio:", e));
+
+            pornesteMasinaTimpului(introScreen);
+        }, 1000); 
+    }
+
+    function pornesteMasinaTimpului(introScreen) {
         const introBg = document.getElementById('intro-bg');
         const yearElement = document.getElementById('intro-year');
         const textElement = document.getElementById('intro-text');
-        const iconElement = document.getElementById('intro-icon');
 
-        // Baza de date cu imagini pentru fiecare epoca
-        const istorieVizuala = [
-            { an: 1600, img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Theodor_Aman_-_Hora_de_la_Aninoasa.jpg/1024px-Theodor_Aman_-_Hora_de_la_Aninoasa.jpg' }, // Hora taraneasca tablou
-            { an: 1850, img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Nicolae_Grigorescu_-_Car_cu_boi_%281%29.jpg/1024px-Nicolae_Grigorescu_-_Car_cu_boi_%281%29.jpg' }, // Car cu boi Grigorescu
-            { an: 1920, img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Romanian_peasants_from_Bessarabia.jpg/800px-Romanian_peasants_from_Bessarabia.jpg' }, // Poza de arhiva sat romanesc
-            { an: 1980, img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Ansamblul_Folcloric_National_Transilvania.jpg/800px-Ansamblul_Folcloric_National_Transilvania.jpg' }, // Ansamblu folcloric scena
-            { an: 2026, img: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1000&auto=format&fit=crop' } // Concept Tech/AI/Digital
-        ];
+        introBg.style.backgroundImage = `url('${istorieVizuala[1600]}')`;
 
         let anCurent = 1600;
-        const anFinal = 2026;
-        const durataAnilor = 3500; // 3.5 secunde pentru toata calatoria
-        const pasTimp = 50; 
-        const increment = (anFinal - anCurent) / (durataAnilor / pasTimp);
-
-        // Setam imaginea de start
-        introBg.style.backgroundImage = `url('${istorieVizuala[0].img}')`;
-
-        let counter = setInterval(() => {
-            anCurent += increment;
+        const tinte = [1700, 1800, 1900, 2000, 2026];
+        let indexTinta = 0;
+        let isPaused = false;
+        
+        let ceas = setInterval(() => {
+            if (isPaused) return; 
             
-            // Verificam ce imagine trebuie afisata in functie de an
-            let imagineActuala = istorieVizuala.slice().reverse().find(ep => anCurent >= ep.an).img;
-            
-            // Daca imaginea s-a schimbat fata de anul trecut, o actualizam in fundal
-            if(introBg.style.backgroundImage !== `url("${imagineActuala}")` && introBg.style.backgroundImage !== `url('${imagineActuala}')`) {
-                introBg.style.backgroundImage = `url('${imagineActuala}')`;
-            }
+            anCurent += 2; 
+            yearElement.innerText = anCurent;
 
-            // Cand ajungem in 2026 (Finalul calatoriei)
-            if (anCurent >= anFinal) {
-                anCurent = anFinal;
-                clearInterval(counter);
-                
-                introScreen.classList.add('modern-era');
-                textElement.style.opacity = '0';
-                iconElement.style.opacity = '0';
-                
-                setTimeout(() => {
-                    textElement.innerHTML = "Lăutarul AI aduce tribut muzicii străbune.<br>Tradiția devine nemuritoare.";
-                    iconElement.innerHTML = '<i class="fas fa-microchip"></i>';
-                    textElement.style.opacity = '1';
-                    iconElement.style.opacity = '1';
-                }, 500);
+            if (anCurent >= tinte[indexTinta]) {
+                anCurent = tinte[indexTinta]; 
+                yearElement.innerText = anCurent;
+                isPaused = true; 
 
-                setTimeout(() => {
-                    introScreen.style.opacity = '0';
+                introBg.style.backgroundImage = `url('${istorieVizuala[anCurent]}')`;
+                yearElement.classList.add('zoom-effect');
+
+                if (anCurent === 2026) {
+                    introScreen.classList.add('modern-era');
+                    textElement.style.opacity = '0';
                     setTimeout(() => {
-                        introScreen.style.display = 'none';
-                        document.body.style.overflow = 'auto'; 
-                    }, 1500); 
-                }, 4000); // Lasa mesajul final sa stea 4 secunde pe ecran
-            }
-            
-            yearElement.innerText = Math.floor(anCurent);
-        }, pasTimp);
-    });
+                        textElement.innerHTML = "Lăutarul AI aduce tribut muzicii străbune.<br>Tradiția devine nemuritoare.";
+                        textElement.style.opacity = '1';
+                    }, 500);
 
-    // ----------------------------------------------------
-    // NAVIGATIE
-    // ----------------------------------------------------
+                    setTimeout(() => {
+                        introScreen.style.opacity = '0';
+                        setTimeout(() => {
+                            introScreen.style.display = 'none';
+                            document.body.style.overflow = 'auto';
+                        }, 1500);
+                    }, 4000);
+                    clearInterval(ceas);
+                    return;
+                }
+
+                setTimeout(() => {
+                    yearElement.classList.remove('zoom-effect');
+                    isPaused = false;
+                    indexTinta++;
+                }, 1000); 
+            }
+        }, 40); 
+    }
+
     function navigare(id, element) {
         document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
         document.getElementById(id).classList.add('active');
@@ -340,14 +262,6 @@
         element.classList.add('active');
         window.scrollTo(0,0);
     }
-
-    let titluRulant = " 🟦🟨🟥 Glasul Dunării (Galați) • Dumitru-Ovidiu Pascu • Tezaur Folcloric • 🟦🟨🟥 • Viitorul Tradiției • ✨ ";
-    function miscaTitlul() {
-        titluRulant = titluRulant.substring(1) + titluRulant.substring(0, 1);
-        document.title = titluRulant;
-        setTimeout(miscaTitlul, 250); 
-    }
-    miscaTitlul();
 </script>
 
 </body>
