@@ -13,20 +13,20 @@
 
         body { margin: 0; padding: 0; background-color: #F9F6F0; font-family: 'Segoe UI', sans-serif; overflow-x: hidden; }
 
-        /* SITE WRAPPER - Ascuns pana la finalul intro-ului */
-        #site-wrapper { display: none; opacity: 0; transition: opacity 1.5s ease; }
+        /* SITE WRAPPER - Invizibil la inceput */
+        #site-wrapper { visibility: hidden; opacity: 0; transition: opacity 1.5s ease; position: absolute; width: 100%; top: 0; left: 0; }
 
         /* 1. START GATE - JURAMANT */
         #start-gate { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999999; display: flex; flex-direction: column; justify-content: center; align-items: center; color: #d2b48c; text-align: center; font-family: 'Georgia', serif; cursor: pointer; }
         .biblia { height: 45vh; width: auto; max-width: 90vw; border-radius: 10px; box-shadow: 0 0 50px #000; transition: 0.5s; }
 
-        /* 2. MIORITA - STROFA COMPLETA (6 VERSURI) */
+        /* 2. MIORITA - 6 VERSURI */
         #opened-book { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #ba8c59; background-image: radial-gradient(ellipse at center, rgba(0,0,0,0) 30%, rgba(0,0,0,0.9) 100%), url('https://www.transparenttextures.com/patterns/parchment.png'); display: none; opacity: 0; transition: opacity 1.5s ease; z-index: 9999998; flex-direction: row; }
         .book-page { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px; text-align: center; }
         .left-page { border-right: 2px solid rgba(0,0,0,0.1); }
-        .aromanian-text { font-family: 'EB Garamond', serif; font-size: 2.2rem; color: #211005; font-style: italic; line-height: 1.5; }
+        .aromanian-text { font-family: 'EB Garamond', serif; font-size: 2.2rem; color: #211005; font-style: italic; line-height: 1.4; }
 
-        /* 3. CINEMA - PELICULA SI PROIECTOR (66% ) */
+        /* 3. CINEMA - PELICULA DINAMICA (66%) */
         #intro-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 999999; display: none; overflow: hidden; }
         .film-perforations { position: absolute; width: 200%; height: 40px; background-image: repeating-linear-gradient(90deg, #fff 0, #fff 30px, transparent 30px, transparent 60px); opacity: 0.2; z-index: 100; animation: moveStrip 2s linear infinite; }
         .perf-top { top: 8vh; }
@@ -42,11 +42,13 @@
         .zoom-effect { animation: heartbeat 1.8s ease-in-out; }
         @keyframes heartbeat { 0% { transform: scale(1); } 50% { transform: scale(1.6); color: var(--aur); } 100% { transform: scale(1); } }
 
-        /* 4. DIAMANT TV & PICKUP */
+        /* 4. DESIGN TELEVIZOR DIAMANT */
         #tv-wrapper { position: relative; width: 100%; max-width: 600px; margin: 0 auto; padding: 25px; background: var(--lemn); border-radius: 15px; border: 8px solid #3a2212; box-shadow: 0 20px 50px #000; }
         #tv-screen-area { background: #000; border-radius: 30px; padding: 10px; border: 4px solid #1a1a1a; overflow: hidden; min-height: 200px; }
         .sigla-diamant { position: absolute; bottom: 8px; right: 25px; font-family: 'Orbitron', sans-serif; font-size: 1rem; color: #ccc; letter-spacing: 2px; text-shadow: 1px 1px 0 #fff; }
-        
+        .logo-electronica { position: absolute; top: 12px; left: 25px; width: 20px; height: 20px; border: 1px solid #ccc; border-radius: 50%; color: #ccc; font-style: italic; font-size: 0.8rem; display: flex; align-items: center; justify-content: center; }
+
+        /* 5. MULTIMEDIA TEZAUR */
         #pickup-wrapper { width: 300px; height: 320px; background: #333; margin: 20px auto; border-radius: 10px; border: 8px solid var(--lemn); position: relative; }
         #vinil-disc { width: 220px; height: 220px; background: radial-gradient(circle, #333 10%, #111 40%, #000 100%); border-radius: 50%; margin: 20px auto; position: relative; }
         .spinning { animation: rotateVinil 3s linear infinite; }
@@ -54,6 +56,7 @@
 
         /* SITE CONTENT */
         header { text-align: center; padding: 40px 20px; border-bottom: 4px solid var(--aur); background: white; }
+        .titlu-modern { font-family: 'Cinzel', serif; font-size: 2.2rem; color: var(--rosu); margin: 0; }
         .container { max-width: 850px; margin: 0 auto; padding: 20px 20px 150px; }
         .glass-panel { background: white; padding: 25px; border-radius: 15px; border-top: 6px solid var(--rosu); margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .section { display: none; }
@@ -83,7 +86,7 @@
     </div>
 
     <header>
-        <h1 style="font-family:'Cinzel'; color:var(--rosu); margin:0;">Dumitru-Ovidiu Pascu</h1>
+        <h1 class="titlu-modern">Dumitru-Ovidiu Pascu</h1>
         <p style="font-weight:900; color:var(--albastru); letter-spacing:2px;">TRADIȚIE • INOVAȚIE • COVURLUI</p>
     </header>
 
@@ -91,7 +94,7 @@
         <div id="acasa" class="section active">
             <div class="glass-panel">
                 <h2>Vatră</h2>
-                <p>Digitalizăm sufletul românesc pentru generațiile viitoare.</p>
+                <p>Muzica este amprenta sufletului românesc în nemărginirea digitală.</p>
             </div>
         </div>
         
@@ -105,6 +108,7 @@
 
             <div id="tezaur-video">
                 <div id="tv-wrapper">
+                    <div class="logo-electronica">e</div>
                     <div class="sigla-diamant">DIAMANT</div>
                     <div id="tv-screen-area">
                         <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
@@ -149,11 +153,11 @@
 
 <div id="opened-book">
     <div class="book-page left-page">
-        <div style="font-family:'Cinzel'; margin-bottom:20px; border-bottom:1px solid #000;">Miorița (Română)</div>
+        <h3 style="font-family:'Cinzel';">Miorița (Română)</h3>
         <p class="aromanian-text">Pe-un picior de plai,<br>Pe-o gură de rai,<br>Iată vin în cale,<br>Se cobor la vale,<br>Trei turme de miei,<br>Cu trei ciobănei.</p>
     </div>
     <div class="book-page">
-        <div style="font-family:'Cinzel'; margin-bottom:20px; border-bottom:1px solid #000;">Mioritsea (Aromână)</div>
+        <h3 style="font-family:'Cinzel';">Mioritsea (Aromână)</h3>
         <p class="aromanian-text">Pi-un cicioar di plai,<br>Pi-unã gurã di rai,<br>Iaca yinu n-cali,<br>S-dipunu la vali,<br>Trei turmi di njelji,<br>Cu trei picurarlji.</p>
     </div>
 </div>
@@ -177,7 +181,7 @@
 <script src="https://www.youtube.com/iframe_api"></script>
 
 <script>
-    // 1. TEXT CURGATOR IN TAB-UL BROWSERULUI
+    // 1. TEXT CURGATOR IN TAB
     let titluText = "Dumitru-Ovidiu Pascu - Tezaur Folcloric Digital - Tradiție și Inovație - ";
     function scrollTitle() {
         document.title = titluText;
@@ -191,16 +195,14 @@
     const volumeSlider = document.getElementById('volume-ctrl');
     let ytPlayer, aJuratDeja = false, pickupPlaying = false;
 
-    // YouTube Setup - Definim functia dar nu o apelam pana nu e site-ul vizibil
-    function setupYouTube() {
-        if (typeof YT !== 'undefined' && YT.Player) {
-            ytPlayer = new YT.Player('player', {
-                height: '100%', width: '100%',
-                videoId: 'videoseries',
-                playerVars: { listType: 'playlist', list: 'PLU99XRyrYep3X6HGO0T9VTWMDPoPsGGhi', rel: 0, playsinline: 1 },
-                events: { 'onStateChange': (e) => { if (e.data == YT.PlayerState.PLAYING) audio.pause(); } }
-            });
-        }
+    // 2. YOUTUBE API - Incarcare fortata standard
+    function onYouTubeIframeAPIReady() {
+        ytPlayer = new YT.Player('player', {
+            height: '100%', width: '100%',
+            videoId: 'videoseries',
+            playerVars: { listType: 'playlist', list: 'PLU99XRyrYep3X6HGO0T9VTWMDPoPsGGhi', rel: 0, playsinline: 1 },
+            events: { 'onStateChange': (e) => { if (e.data == YT.PlayerState.PLAYING) audio.pause(); } }
+        });
     }
 
     function juraSiPorneste() {
@@ -241,12 +243,9 @@
                         setTimeout(() => {
                             intro.style.display = 'none';
                             const wrapper = document.getElementById('site-wrapper');
-                            wrapper.style.display = 'block';
-                            setTimeout(() => {
-                                wrapper.style.opacity = '1';
-                                // ABIA ACUM INITIALIZAM YOUTUBE-UL
-                                setupYouTube();
-                            }, 50);
+                            wrapper.style.visibility = 'visible';
+                            wrapper.style.opacity = '1';
+                            wrapper.style.position = 'relative'; // Il aducem in fluxul normal
                             document.body.style.overflow = 'auto';
                         }, 1500);
                     }, 4000);
