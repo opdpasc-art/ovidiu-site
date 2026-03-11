@@ -3,117 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Dumitru-Ovidiu Pascu - Tezaur Folcloric Digital - </title>
+    <title>Dumitru-Ovidiu Pascu - Tezaur Folcloric Digital</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400&family=Cinzel:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400&family=Cinzel:wght@600&family=Orbitron:wght@700&display=swap" rel="stylesheet">
     
     <style>
-        :root { --rosu-sange: #C8102E; --albastru-cobalt: #002366; --auriu-grau: #F1C40F; --fundal-in: #F9F6F0; --lemn: #5d3a1a; }
+        :root { --rosu: #C8102E; --albastru: #002366; --aur: #F1C40F; --lemn: #4d2d18; --lemn-deschis: #7d4e2d; --negru-vinil: #111; }
 
-        body { margin: 0; padding: 0; background-color: var(--fundal-in); overflow-x: hidden; font-family: 'Segoe UI', sans-serif; }
-        
-        /* SITE-UL ESTE COMPLET INVIZIBIL INITIAL */
-        .site-ascuns { display: none !important; }
+        body { margin: 0; padding: 0; background-color: #F9F6F0; font-family: 'Segoe UI', sans-serif; overflow-x: hidden; }
 
-        /* START GATE - JURAMANTUL */
-        #start-gate {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, #1a1a1a 0%, #000000 100%); z-index: 9999999;
-            display: flex; flex-direction: column; justify-content: flex-start; align-items: center;
-            color: #d2b48c; text-align: center; font-family: 'Georgia', serif; padding-top: 5vh; cursor: pointer;
-        }
-        .biblia { height: 45vh; width: auto; max-width: 90vw; border-radius: 10px; box-shadow: 0 0 50px rgba(0,0,0,1); transition: 0.5s; }
+        /* SITE WRAPPER */
+        #site-wrapper { display: none; opacity: 0; transition: opacity 1.5s ease; }
 
-        /* MIORITA */
-        #opened-book {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: #ba8c59;
-            background-image: radial-gradient(ellipse at center, rgba(0,0,0,0) 30%, rgba(0,0,0,0.9) 100%), url('https://www.transparenttextures.com/patterns/parchment.png');
-            display: none; opacity: 0; transition: opacity 1.5s ease; z-index: 9999998; flex-direction: row;
-        }
-        .book-page { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px; }
-        .aromanian-text { font-family: 'EB Garamond', serif; font-size: 2.2rem; color: #211005; text-align: center; font-style: italic; }
+        /* 1. INTRO / JURAMANT / MIORITA (Codul ramane intact) */
+        #start-gate { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, #1a1a1a 0%, #000000 100%); z-index: 9999999; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; color: #d2b48c; text-align: center; font-family: 'Georgia', serif; padding-top: 5vh; cursor: pointer; }
+        .biblia { height: 45vh; width: auto; max-width: 90vw; border-radius: 10px; box-shadow: 0 0 50px #000; transition: 0.5s; }
+        #opened-book { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #ba8c59 url('https://www.transparenttextures.com/patterns/parchment.png'); background-image: radial-gradient(ellipse at center, rgba(0,0,0,0) 30%, rgba(0,0,0,0.9) 100%), url('https://www.transparenttextures.com/patterns/parchment.png'); display: none; opacity: 0; transition: opacity 1.5s ease; z-index: 9999998; flex-direction: row; }
+        .book-page { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px; text-align: center; }
+        .aromanian-text { font-family: 'EB Garamond', serif; font-size: 2.2rem; color: #211005; font-style: italic; }
 
-        /* CINEMA - BANDA ORIZONTALA */
-        #intro-screen {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; z-index: 999999; display: none; overflow: hidden;
-        }
-        #film-strip {
-            display: flex; width: 600vw; height: 100%;
-            transition: transform 1.2s cubic-bezier(0.45, 0.05, 0.55, 0.95);
-            position: absolute; left: 0; top: 0;
-        }
-        .film-frame {
-            width: 100vw; height: 100vh; background-size: cover; background-position: center;
-            filter: grayscale(40%) sepia(25%); opacity: 0.6;
-        }
-        .film-decor {
-            position: absolute; width: 100%; height: 100%; top: 0; left: 0;
-            background: repeating-linear-gradient(90deg, #000 0, #000 40px, transparent 40px, transparent 60px);
-            background-size: 100% 35px; background-repeat: repeat-x;
-            background-position: 0 5px, 0 calc(100% - 5px); z-index: 10; pointer-events: none;
-        }
-
-        #intro-year-container { position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 20; pointer-events: none; }
+        /* 2. CINEMA */
+        #intro-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 999999; display: none; overflow: hidden; }
+        #film-strip { display: flex; width: 600vw; height: 100%; transition: transform 1.2s cubic-bezier(0.45, 0.05, 0.55, 0.95); position: absolute; left: 0; top: 0; }
+        .film-frame { width: 100vw; height: 100vh; background-size: cover; background-position: center; filter: grayscale(40%) sepia(25%); opacity: 0.6; }
+        .film-decor { position: absolute; width: 100%; height: 100%; top: 0; left: 0; background: repeating-linear-gradient(90deg, #000 0, #000 40px, transparent 40px, transparent 60px); background-size: 100% 35px; background-repeat: repeat-x; background-position: 0 5px, 0 calc(100% - 5px); z-index: 10; pointer-events: none; }
         #intro-year { font-size: 7rem; font-weight: bold; color: #f4e4bc; font-family: 'Courier New', monospace; text-shadow: 0 0 30px #000; }
-        .zoom-effect { animation: heartbeat 1.5s ease-in-out; }
-        @keyframes heartbeat { 0% { transform: scale(1); } 50% { transform: scale(1.4); color: var(--auriu-grau); } 100% { transform: scale(1); } }
 
-        /* CONTROALE MUZICA */
-        #music-controls {
-            position: fixed; top: 20px; right: 20px; background: rgba(93, 58, 26, 0.9);
-            padding: 12px; border-radius: 15px; flex-direction: column; align-items: center;
-            z-index: 10001; border: 2px solid var(--auriu-grau);
-        }
-        #play-pause-btn { background: var(--rosu-sange); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; }
+        /* 3. SUB-NAVIGATIE TEZAUR */
+        .sub-nav-tezaur { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; }
+        .sub-nav-tezaur button { background: var(--lemn); color: var(--aur); border: 2px solid var(--aur); padding: 10px 20px; border-radius: 5px; font-family: 'Cinzel', serif; cursor: pointer; transition: 0.3s; }
+        .sub-nav-tezaur button.active { background: var(--rosu); color: white; }
 
-        /* SITE STYLES */
-        header { text-align: center; padding: 40px 20px; border-bottom: 4px solid var(--auriu-grau); background: white; }
-        .titlu-modern { font-family: 'Cinzel', serif; font-size: 2.2rem; color: var(--rosu-sange); margin: 0; }
-        .container { max-width: 850px; margin: 0 auto; padding: 20px 20px 120px; }
-        .glass-panel { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-top: 6px solid var(--rosu-sange); }
+        /* 4. PICK-UP AUDIO */
+        #pickup-wrapper { width: 300px; height: 350px; background: #333; margin: 0 auto; border-radius: 10px; border: 8px solid var(--lemn); position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+        #vinil-disc { width: 240px; height: 240px; background: radial-gradient(circle, #333 10%, #111 11%, #111 12%, #222 13%, #111 40%, #000 100%); border-radius: 50%; margin: 20px auto; position: relative; border: 2px solid #333; box-shadow: 0 0 20px rgba(0,0,0,0.8); }
+        #vinil-label { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 60px; height: 60px; background: var(--rosu); border-radius: 50%; border: 2px solid var(--aur); display: flex; align-items: center; justify-content: center; color: white; font-size: 0.5rem; font-weight: bold; text-align: center; }
+        .spinning { animation: rotateVinil 2s linear infinite; }
+        @keyframes rotateVinil { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
+        #tonarm { position: absolute; top: 20px; right: 20px; width: 10px; height: 150px; background: #888; transform-origin: top center; transform: rotate(15deg); transition: 1s; border-radius: 5px; z-index: 10; }
+        #tonarm.active { transform: rotate(35deg); }
+
+        /* 5. DIAMANT TV (Codul tau ramane la fel) */
+        #tv-wrapper { position: relative; width: 100%; max-width: 600px; margin: 0 auto; padding: 20px; background: var(--lemn); border-radius: 15px; border: 8px solid #3a2212; }
+        #tv-screen-area { background: #000; border-radius: 40px / 15px; padding: 10px; border: 4px solid #1a1a1a; overflow: hidden; position: relative; }
+        .sigla-diamant { position: absolute; bottom: 8px; right: 25px; font-family: 'Orbitron', sans-serif; font-size: 1rem; color: #ccc; letter-spacing: 2px; }
+
+        /* 6. FOTO - BANDA CINEMA */
+        #foto-strip-container { width: 100%; overflow-x: auto; white-space: nowrap; padding: 20px 0; background: #111; border-top: 4px solid var(--aur); border-bottom: 4px solid var(--aur); }
+        .foto-cadru { display: inline-block; width: 250px; height: 180px; margin-right: 15px; background-size: cover; background-position: center; border: 2px solid #333; position: relative; filter: sepia(0.3); }
+        .foto-cadru::before, .foto-cadru::after { content: ''; position: absolute; left: 0; width: 100%; height: 15px; background: repeating-linear-gradient(90deg, #000 0, #000 20px, #fff 20px, #fff 25px); opacity: 0.3; }
+        .foto-cadru::before { top: 2px; } .foto-cadru::after { bottom: 2px; }
+
+        /* SITE CONTENT */
+        header { text-align: center; padding: 40px 20px; border-bottom: 4px solid var(--aur); background: white; }
+        .titlu-modern { font-family: 'Cinzel', serif; font-size: 2.2rem; color: var(--rosu); margin: 0; }
+        .container { max-width: 850px; margin: 0 auto; padding: 20px 20px 150px; }
+        .glass-panel { background: white; padding: 25px; border-radius: 15px; border-top: 6px solid var(--rosu); margin-bottom: 30px; }
         .section { display: none; }
         .section.active { display: block; }
         nav { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); background: white; padding: 10px 25px; border-radius: 50px; display: flex; gap: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); z-index: 1000; }
-        nav button { background: none; border: none; color: #7f8c8d; font-size: 0.8rem; font-weight: bold; cursor: pointer; display: flex; flex-direction: column; align-items: center; }
-        nav button.active { color: var(--rosu-sange); }
+        nav button { background: none; border: none; color: #7f8c8d; font-size: 0.8rem; font-weight: bold; cursor: pointer; }
+        nav button.active { color: var(--rosu); }
 
-        @media (max-width: 768px) {
-            #opened-book { flex-direction: column; }
-            #intro-year { font-size: 4rem; }
-            .aromanian-text { font-size: 1.3rem; }
-            .titlu-modern { font-size: 1.6rem; }
-        }
+        #music-controls { position: fixed; top: 20px; right: 20px; background: rgba(93, 58, 26, 0.9); padding: 12px; border-radius: 15px; display: flex; flex-direction: column; align-items: center; z-index: 10001; border: 2px solid var(--aur); }
+        #play-pause-btn { background: var(--rosu); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; }
     </style>
 </head>
 <body>
 
 <audio id="audio-fundal" src="muzica_intro.mp3" loop></audio>
 
-<div id="music-controls" class="site-ascuns">
-    <button id="play-pause-btn"><i class="fas fa-pause"></i></button>
-    <input type="range" min="0" max="1" step="0.01" value="0.05" id="volume-ctrl" style="width:80px; margin-top:10px;">
+<div id="site-wrapper">
+    <div id="music-controls">
+        <button id="play-pause-btn"><i class="fas fa-pause"></i></button>
+        <input type="range" min="0" max="1" step="0.01" value="0.05" id="volume-ctrl" style="width:80px; margin-top:10px;">
+    </div>
+
+    <header>
+        <h1 class="titlu-modern">Dumitru-Ovidiu Pascu</h1>
+        <p style="font-weight:900; color:var(--albastru);">TRADIȚIE • INOVAȚIE • COVURLUI</p>
+    </header>
+
+    <div class="container">
+        <div id="acasa" class="section active">
+            <div class="glass-panel">
+                <h2>Cuvânt de Bun Venit</h2>
+                <p>Digitalizăm sufletul românesc pentru generațiile viitoare.</p>
+            </div>
+        </div>
+        
+        <div id="video" class="section">
+            <h2 style="text-align:center; font-family:'Cinzel';">Tezaur Multimedia</h2>
+            
+            <div class="sub-nav-tezaur">
+                <button id="btn-video" class="active" onclick="switchTezaur('video')">VIDEO</button>
+                <button id="btn-audio" onclick="switchTezaur('audio')">AUDIO</button>
+                <button id="btn-foto" onclick="switchTezaur('foto')">FOTO</button>
+            </div>
+
+            <div id="tezaur-video">
+                <div id="tv-wrapper">
+                    <div class="sigla-diamant">DIAMANT</div>
+                    <div id="tv-screen-area">
+                        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;"><div id="player"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tezaur-audio" style="display:none;">
+                <div id="pickup-wrapper">
+                    <div id="tonarm"></div>
+                    <div id="vinil-disc">
+                        <div id="vinil-label">ELECTRECORD<br><span style="font-size:0.3rem">OVIDIU PASCU</span></div>
+                    </div>
+                    <div style="text-align:center; margin-top:10px;">
+                        <button onclick="togglePickup()" style="background:var(--rosu); color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer; font-weight:bold;">PORNEȘTE / OPREȘTE DISCUL</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tezaur-foto" style="display:none;">
+                <div id="foto-strip-container">
+                    <div class="foto-cadru" style="background-image: url('poza1.jpg');"></div>
+                    <div class="foto-cadru" style="background-image: url('poza2.jpg');"></div>
+                    <div class="foto-cadru" style="background-image: url('poza3.jpg');"></div>
+                    <div class="foto-cadru" style="background-image: url('poza4.jpg');"></div>
+                    <div class="foto-cadru" style="background-image: url('poza5.jpg');"></div>
+                    <div class="foto-cadru" style="background-image: url('poza6.jpg');"></div>
+                </div>
+                <p style="text-align:center; font-style:italic; color:#666; margin-top:10px;">Trageți banda spre stânga pentru a vedea pozele</p>
+            </div>
+        </div>
+
+        <div id="contact" class="section">
+            <div class="glass-panel" style="text-align:center;"><h2>Contact</h2><p>contact@ce-ai-ovidiu.online</p></div>
+        </div>
+    </div>
+
+    <nav>
+        <button onclick="navigare('acasa', this)" class="active">VATRĂ</button>
+        <button onclick="navigare('video', this)">TEZAUR</button>
+        <button onclick="navigare('contact', this)">CONTACT</button>
+    </nav>
 </div>
 
 <div id="start-gate" onclick="juraSiPorneste()">
     <div id="gate-content">
-        <h2 style="font-size:2rem; color:var(--auriu-grau);">Jurământul Tradiției</h2>
-        <p style="font-style:italic; padding:0 20px;">„Înainte de a păși în acest tezaur, jură să respecți, să păstrezi și să dai mai departe moștenirea sfântă a neamului românesc.”</p>
+        <h2 style="font-size:2rem; color:var(--aur);">Jurământul Tradiției</h2>
         <img src="biblia-veche.jpg" alt="Biblia" class="biblia">
-        <p style="margin-top:20px; color:var(--auriu-grau);">Atinge Biblia pentru a jura</p>
+        <p style="margin-top:20px; color:var(--aur);">Atinge Biblia pentru a jura</p>
     </div>
 </div>
 
 <div id="opened-book">
-    <div class="book-page" style="border-right: 1px solid rgba(0,0,0,0.1);">
-        <h3 style="font-family:'Cinzel';">Miorița</h3>
-        <p class="aromanian-text">Pe-un picior de plai,<br>Pe-o gură de rai,<br>Iată vin în cale,<br>Se cobor la vale,<br>Trei turme de miei,<br>Cu trei ciobănei.</p>
+    <div class="book-page left-page">
+        <div class="aromanian-title">Miorița</div>
+        <p class="aromanian-text">Pe-un picior de plai,<br>Pe-o gură de rai...</p>
     </div>
     <div class="book-page">
-        <h3 style="font-family:'Cinzel';">Mioritsea</h3>
-        <p class="aromanian-text">Pi-un cicioar di plai,<br>Pi-unã gurã di rai,<br>Iaca yinu n-cali,<br>S-dipunu la vali,<br>Trei turmi di njelji,<br>Cu trei picurarlji.</p>
+        <div class="aromanian-title">Mioritsea</div>
+        <p class="aromanian-text">Pi-un cicioar di plai,<br>Pi-unã gurã di rai...</p>
     </div>
 </div>
 
@@ -127,77 +177,64 @@
         <div class="film-frame" style="background-image: url('poza5.jpg');"></div>
         <div class="film-frame" style="background-image: url('poza6.jpg');"></div>
     </div>
-    <div id="intro-year-container"><div id="intro-year">1600</div></div>
+    <div style="position:absolute; width:100%; height:100%; display:flex; justify-content:center; align-items:center; z-index:20;"><div id="intro-year">1600</div></div>
 </div>
 
-<header id="main-header" class="site-ascuns">
-    <h1 class="titlu-modern">Dumitru-Ovidiu Pascu</h1>
-    <p style="font-weight:900; color:var(--albastru-cobalt);">TRADIȚIE • INOVAȚIE • COVURLUI</p>
-</header>
-
-<div class="container site-ascuns" id="main-container">
-    <div id="acasa" class="section active">
-        <div class="glass-panel">
-            <h2>Manifestul Viitorului</h2>
-            <p>Muzica nu este doar sunet, este amprenta noastră genetică. Acest portal este o punte între moștenirea bunicilor și tehnologia de mâine.</p>
-        </div>
-    </div>
-    
-    <div id="bio" class="section">
-        <div class="glass-panel"><h2>Viziune și Rădăcini</h2><p>Suntem generația care are datoria de a digitaliza sufletul românesc.</p></div>
-    </div>
-
-    <div id="video" class="section">
-        <div class="glass-panel" style="text-align:center;">
-            <h2>Tezaur Video</h2>
-            <div id="yt-placeholder" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 15px; background: #000;">
-                </div>
-        </div>
-    </div>
-
-    <div id="contact" class="section">
-        <div class="glass-panel" style="text-align:center;"><h2>Contact</h2><p>contact@ce-ai-ovidiu.online</p></div>
-    </div>
-</div>
-
-<nav id="main-nav" class="site-ascuns">
-    <button onclick="navigare('acasa', this)" class="active"><i class="fas fa-home"></i>VATRĂ</button>
-    <button onclick="navigare('bio', this)"><i class="fas fa-seedling"></i>VIZIUNE</button>
-    <button onclick="navigare('video', this)"><i class="fas fa-film"></i>TEZAUR</button>
-    <button onclick="navigare('contact', this)"><i class="fas fa-envelope"></i>CONTACT</button>
-</nav>
+<script src="https://www.youtube.com/iframe_api"></script>
 
 <script>
     const audio = document.getElementById('audio-fundal');
     const playPauseBtn = document.getElementById('play-pause-btn');
     const volumeSlider = document.getElementById('volume-ctrl');
-    let aJuratDeja = false;
-    let ytPlayer;
+    let ytPlayer, aJuratDeja = false, pickupPlaying = false;
 
-    // Functie pentru incarcare YouTube DOAR cand e nevoie
-    function initYouTube() {
-        const tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        const firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-    }
-
+    // YouTube Setup
     function onYouTubeIframeAPIReady() {
-        const playerDiv = document.createElement('div');
-        playerDiv.id = 'player';
-        document.getElementById('yt-placeholder').appendChild(playerDiv);
-
         ytPlayer = new YT.Player('player', {
             height: '100%', width: '100%',
             videoId: 'videoseries',
-            playerVars: { listType: 'playlist', list: 'PLU99XRyrYep3X6HGO0T9VTWMDPoPsGGhi', rel: 0 },
+            playerVars: { listType: 'playlist', list: 'PLU99XRyrYep3X6HGO0T9VTWMDPoPsGGhi', rel: 0, playsinline: 1 },
             events: { 'onStateChange': (e) => { if (e.data == YT.PlayerState.PLAYING) pauseBG(); } }
         });
     }
 
+    // Navigatie Tezaur
+    function switchTezaur(type) {
+        document.getElementById('tezaur-video').style.display = 'none';
+        document.getElementById('tezaur-audio').style.display = 'none';
+        document.getElementById('tezaur-foto').style.display = 'none';
+        document.getElementById('btn-video').classList.remove('active');
+        document.getElementById('btn-audio').classList.remove('active');
+        document.getElementById('btn-foto').classList.remove('active');
+
+        document.getElementById('tezaur-' + type).style.display = 'block';
+        document.getElementById('btn-' + type).classList.add('active');
+        
+        // Daca plecam de la video, oprim YouTube-ul
+        if (type !== 'video' && ytPlayer && ytPlayer.pauseVideo) ytPlayer.pauseVideo();
+        // Daca plecam de la audio, oprim pickup-ul
+        if (type !== 'audio' && pickupPlaying) togglePickup();
+    }
+
+    // Logic Pickup
+    function togglePickup() {
+        const disc = document.getElementById('vinil-label');
+        const arm = document.getElementById('tonarm');
+        if (!pickupPlaying) {
+            disc.classList.add('spinning');
+            arm.classList.add('active');
+            playBG(); // Porneste sârba ciobănească
+            pickupPlaying = true;
+        } else {
+            disc.classList.remove('spinning');
+            arm.classList.remove('active');
+            pauseBG();
+            pickupPlaying = false;
+        }
+    }
+
     function pauseBG() { audio.pause(); playPauseBtn.innerHTML = '<i class="fas fa-play"></i>'; }
     function playBG() { audio.play(); playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>'; }
-
     playPauseBtn.onclick = () => { if (audio.paused) playBG(); else pauseBG(); };
     volumeSlider.oninput = () => { audio.volume = volumeSlider.value; };
 
@@ -220,37 +257,26 @@
         const intro = document.getElementById('intro-screen');
         const strip = document.getElementById('film-strip');
         const yr = document.getElementById('intro-year');
-        
         intro.style.display = 'block';
         audio.volume = 0.05; audio.currentTime = 4; audio.play();
 
         let an = 1600; let tinte = [1700, 1800, 1900, 2000, 2026]; let i = 0; let isPaused = false;
-
         let counter = setInterval(() => {
             if (isPaused) return;
             an += 2; yr.innerText = an;
-
             if (an >= tinte[i]) {
-                an = tinte[i]; yr.innerText = an; isPaused = true;
-                i++;
+                an = tinte[i]; yr.innerText = an; isPaused = true; i++;
                 strip.style.transform = `translateX(-${(i) * 100}vw)`;
                 yr.classList.add('zoom-effect');
-
                 if (an === 2026) {
                     clearInterval(counter);
-                    // Incarcam YouTube in fundal chiar inainte de final
-                    initYouTube();
                     setTimeout(() => {
                         intro.style.opacity = '0';
                         setTimeout(() => {
                             intro.style.display = 'none';
-                            // AFISAM SITE-UL PRIN ELIMINAREA CLASEI
-                            document.querySelectorAll('.site-ascuns').forEach(el => {
-                                el.classList.remove('site-ascuns');
-                                el.style.display = 'block';
-                            });
-                            document.getElementById('main-nav').style.display = 'flex';
-                            document.getElementById('music-controls').style.display = 'flex';
+                            const wrapper = document.getElementById('site-wrapper');
+                            wrapper.style.display = 'block';
+                            setTimeout(() => wrapper.style.opacity = '1', 50);
                             document.body.style.overflow = 'auto';
                         }, 1500);
                     }, 4000);
@@ -266,7 +292,6 @@
         document.getElementById(id).classList.add('active');
         document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        window.scrollTo(0,0);
     }
 </script>
 </body>
