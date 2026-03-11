@@ -215,4 +215,82 @@
         ytPlayer = new YT.Player('player', {
             height: '100%', width: '100%',
             videoId: 'videoseries',
-            playerVars: { listType: 'playlist', list: 'PLU99XRyrYep3X6HGO0T9VTWMDPoPsGGhi',
+            playerVars: { listType: 'playlist', list: 'PLU99XRyrYep3X6HGO0T9VTWMDPoPsGGhi', rel: 0 },
+            events: { 'onStateChange': (e) => { if (e.data == YT.PlayerState.PLAYING) pauseBG(); } }
+        });
+    }
+
+    function pauseBG() { audio.pause(); playPauseBtn.innerHTML = '<i class="fas fa-play"></i>'; }
+    function playBG() { audio.play(); playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>'; }
+
+    playPauseBtn.onclick = () => { if (audio.paused) playBG(); else pauseBG(); };
+    volumeSlider.oninput = () => { audio.volume = volumeSlider.value; };
+
+    function juraSiPorneste() {
+        if(aJuratDeja) return; aJuratDeja = true;
+        document.getElementById('start-gate').style.opacity = '0';
+        setTimeout(() => {
+            document.getElementById('start-gate').style.display = 'none';
+            const book = document.getElementById('opened-book');
+            book.style.display = 'flex';
+            setTimeout(() => book.style.opacity = '1', 50);
+            setTimeout(() => {
+                book.style.opacity = '0';
+                setTimeout(() => { book.style.display = 'none'; pornesteCinema(); }, 1500);
+            }, 10000); 
+        }, 1000);
+    }
+
+    function pornesteCinema() {
+        const intro = document.getElementById('intro-screen');
+        const strip = document.getElementById('film-strip');
+        const yr = document.getElementById('intro-year');
+        
+        intro.style.display = 'block';
+        audio.volume = 0.05; audio.currentTime = 4; audio.play();
+
+        let an = 1600; let tinte = [1700, 1800, 1900, 2000, 2026]; let i = 0; let isPaused = false;
+
+        let counter = setInterval(() => {
+            if (isPaused) return;
+            an += 2; yr.innerText = an;
+
+            if (an >= tinte[i]) {
+                an = tinte[i]; yr.innerText = an; isPaused = true;
+                i++;
+                
+                // MISCARE ORIZONTALA A BENZII
+                strip.style.transform = `translateX(-${(i) * 100}vw)`;
+                yr.classList.add('zoom-effect');
+
+                if (an === 2026) {
+                    clearInterval(counter);
+                    setTimeout(() => {
+                        intro.style.opacity = '0';
+                        setTimeout(() => {
+                            intro.style.display = 'none';
+                            // ABIA ACUM AFISAM SITE-UL
+                            document.getElementById('main-header').style.setProperty('display', 'block', 'important');
+                            document.getElementById('main-container').style.setProperty('display', 'block', 'important');
+                            document.getElementById('main-nav').style.setProperty('display', 'flex', 'important');
+                            document.getElementById('music-controls').style.setProperty('display', 'flex', 'important');
+                            document.body.style.overflow = 'auto';
+                        }, 1500);
+                    }, 4000);
+                    return;
+                }
+                setTimeout(() => { yr.classList.remove('zoom-effect'); isPaused = false; }, 2000); 
+            }
+        }, 40);
+    }
+
+    function navigare(id, btn) {
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        window.scrollTo(0,0);
+    }
+</script>
+</body>
+</html>
