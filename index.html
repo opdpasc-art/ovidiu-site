@@ -3,6 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <meta name="theme-color" content="#C8102E">
+    
+    <meta property="og:title" content="Dumitru-Ovidiu Pascu - Tezaur Folcloric">
+    <meta property="og:description" content="Descoperă muzica autentică și tradiția românească din zona Covurluiului.">
+    <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Romanian_blouse_%28ie%29_from_Muscel.jpg/800px-Romanian_blouse_%28ie%29_from_Muscel.jpg">
+    <meta property="og:url" content="https://ce-ai-ovidiu.online">
+    <meta property="og:type" content="website">
+
     <title>Dumitru-Ovidiu Pascu - Viitorul Tradiției</title>
     
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'> <rect x='0' y='0' width='33.33' height='100' fill='%23002B7F'/> <rect x='33.33' y='0' width='33.33' height='100' fill='%23FCD116'/> <rect x='66.66' y='0' width='33.33' height='100' fill='%23C8102E'/> <text x='50' y='75' text-anchor='middle' font-size='55' fill='white' font-weight='bold' font-family='sans-serif'>RO</text> </svg>">
@@ -16,6 +25,16 @@
             --fundal-in: #F9F6F0;
         }
         
+        /* TRUC 3: Culoarea textului cand este selectat de vizitator */
+        ::selection {
+            background-color: var(--rosu-sange);
+            color: var(--auriu-grau);
+        }
+        ::-moz-selection {
+            background-color: var(--rosu-sange);
+            color: var(--auriu-grau);
+        }
+
         body { 
             background-color: var(--fundal-in);
             background-image: 
@@ -215,14 +234,12 @@
         window.scrollTo(0,0);
     }
 
-    // SCRIPTUL RULEAZĂ "COLORAT" (Fiecare repetitie incepe cu o runda de tricolor)
-    // Am inclus referinta la Galati si text mai lung pentru a se vedea bine rularea.
     let titluRulant = " 🟦🟨🟥 Glasul Dunării (Galați) • Dumitru-Ovidiu Pascu • Tezaur Folcloric • 🟦🟨🟥 • Viitorul Tradiției • ✨ ";
     
     function miscaTitlul() {
         titluRulant = titluRulant.substring(1) + titluRulant.substring(0, 1);
         document.title = titluRulant;
-        setTimeout(miscaTitlul, 250); // Am marit putin viteza (250ms) sa se miste mai vioi
+        setTimeout(miscaTitlul, 250); 
     }
     
     miscaTitlul();
