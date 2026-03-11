@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Dumitru-Ovidiu Pascu - Tezaur Folcloric Digital</title>
+    <title>Dumitru-Ovidiu Pascu - Tezaur Folcloric Digital - </title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400&family=Cinzel:wght@600&family=Orbitron:wght@700&display=swap" rel="stylesheet">
@@ -13,70 +13,42 @@
 
         body { margin: 0; padding: 0; background-color: #F9F6F0; font-family: 'Segoe UI', sans-serif; overflow-x: hidden; }
 
-        /* SITE WRAPPER */
+        /* SITE WRAPPER - Ascuns pana la finalul intro-ului */
         #site-wrapper { display: none; opacity: 0; transition: opacity 1.5s ease; }
 
-        /* 1. START GATE */
+        /* 1. START GATE - JURAMANT */
         #start-gate { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999999; display: flex; flex-direction: column; justify-content: center; align-items: center; color: #d2b48c; text-align: center; font-family: 'Georgia', serif; cursor: pointer; }
-        .biblia { height: 45vh; width: auto; max-width: 90vw; border-radius: 10px; box-shadow: 0 0 50px #000; }
+        .biblia { height: 45vh; width: auto; max-width: 90vw; border-radius: 10px; box-shadow: 0 0 50px #000; transition: 0.5s; }
 
-        /* 2. MIORITA */
+        /* 2. MIORITA - STROFA COMPLETA (6 VERSURI) */
         #opened-book { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #ba8c59; background-image: radial-gradient(ellipse at center, rgba(0,0,0,0) 30%, rgba(0,0,0,0.9) 100%), url('https://www.transparenttextures.com/patterns/parchment.png'); display: none; opacity: 0; transition: opacity 1.5s ease; z-index: 9999998; flex-direction: row; }
         .book-page { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px; text-align: center; }
-        .aromanian-text { font-family: 'EB Garamond', serif; font-size: 2.2rem; color: #211005; font-style: italic; }
+        .left-page { border-right: 2px solid rgba(0,0,0,0.1); }
+        .aromanian-text { font-family: 'EB Garamond', serif; font-size: 2.2rem; color: #211005; font-style: italic; line-height: 1.5; }
 
-        /* 3. CINEMA - BANDA ORIZONTALA DINAMICA */
+        /* 3. CINEMA - PELICULA SI PROIECTOR (66% ) */
         #intro-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 999999; display: none; overflow: hidden; }
-        
-        /* Benzi pelicula cu patratele care se misca */
-        .film-perforations {
-            position: absolute; width: 200%; height: 40px;
-            background-image: repeating-linear-gradient(90deg, #fff 0, #fff 30px, transparent 30px, transparent 60px);
-            opacity: 0.3; z-index: 100;
-            animation: moveStrip 2s linear infinite;
-        }
-        .perf-top { top: 10vh; }
-        .perf-bottom { bottom: 10vh; }
-
+        .film-perforations { position: absolute; width: 200%; height: 40px; background-image: repeating-linear-gradient(90deg, #fff 0, #fff 30px, transparent 30px, transparent 60px); opacity: 0.2; z-index: 100; animation: moveStrip 2s linear infinite; }
+        .perf-top { top: 8vh; }
+        .perf-bottom { bottom: 8vh; }
         @keyframes moveStrip { from { transform: translateX(0); } to { transform: translateX(-60px); } }
 
-        /* Fereastra pozei (66% din inaltime) */
-        #film-viewport {
-            position: absolute; top: 17vh; left: 0; width: 100%; height: 66vh;
-            overflow: hidden; border-top: 5px solid #222; border-bottom: 5px solid #222;
-        }
-
-        #film-strip {
-            display: flex; width: 600vw; height: 100%;
-            transition: transform 1.5s cubic-bezier(0.45, 0.05, 0.55, 0.95);
-        }
-
-        .film-frame {
-            width: 100vw; height: 66vh;
-            background-size: contain; /* ASIGURA CA SE VEDE TOATA POZA */
-            background-repeat: no-repeat; background-position: center;
-            filter: grayscale(30%) sepia(20%);
-        }
+        #film-viewport { position: absolute; top: 17vh; left: 0; width: 100%; height: 66vh; overflow: hidden; border-top: 4px solid #333; border-bottom: 4px solid #333; background: #050505; }
+        #film-strip { display: flex; width: 600vw; height: 100%; transition: transform 1.5s cubic-bezier(0.45, 0.05, 0.55, 0.95); }
+        .film-frame { width: 100vw; height: 66vh; background-size: contain; background-repeat: no-repeat; background-position: center; filter: grayscale(20%) sepia(20%); }
 
         #intro-year-container { position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 110; pointer-events: none; }
-        #intro-year { font-size: 8rem; font-weight: bold; color: #f4e4bc; font-family: 'Courier New', monospace; text-shadow: 5px 5px 15px #000; }
+        #intro-year { font-size: 8rem; font-weight: bold; color: #f4e4bc; font-family: 'Courier New', monospace; text-shadow: 5px 5px 20px #000; }
         .zoom-effect { animation: heartbeat 1.8s ease-in-out; }
         @keyframes heartbeat { 0% { transform: scale(1); } 50% { transform: scale(1.6); color: var(--aur); } 100% { transform: scale(1); } }
 
-        /* 4. MULTIMEDIA TEZAUR */
-        .sub-nav-tezaur { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; }
-        .sub-nav-tezaur button { background: var(--lemn); color: var(--aur); border: 2px solid var(--aur); padding: 10px 20px; border-radius: 5px; font-family: 'Cinzel', serif; cursor: pointer; }
-        .sub-nav-tezaur button.active { background: var(--rosu); color: #fff; }
-
-        /* TV DIAMANT */
+        /* 4. DIAMANT TV & PICKUP */
         #tv-wrapper { position: relative; width: 100%; max-width: 600px; margin: 0 auto; padding: 25px; background: var(--lemn); border-radius: 15px; border: 8px solid #3a2212; box-shadow: 0 20px 50px #000; }
-        #tv-screen-area { background: #000; border-radius: 30px; padding: 10px; border: 4px solid #1a1a1a; overflow: hidden; }
+        #tv-screen-area { background: #000; border-radius: 30px; padding: 10px; border: 4px solid #1a1a1a; overflow: hidden; min-height: 200px; }
         .sigla-diamant { position: absolute; bottom: 8px; right: 25px; font-family: 'Orbitron', sans-serif; font-size: 1rem; color: #ccc; letter-spacing: 2px; text-shadow: 1px 1px 0 #fff; }
-
-        /* PICKUP */
+        
         #pickup-wrapper { width: 300px; height: 320px; background: #333; margin: 20px auto; border-radius: 10px; border: 8px solid var(--lemn); position: relative; }
         #vinil-disc { width: 220px; height: 220px; background: radial-gradient(circle, #333 10%, #111 40%, #000 100%); border-radius: 50%; margin: 20px auto; position: relative; }
-        #vinil-label { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 60px; height: 60px; background: var(--rosu); border-radius: 50%; border: 2px solid var(--aur); }
         .spinning { animation: rotateVinil 3s linear infinite; }
         @keyframes rotateVinil { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
 
@@ -89,6 +61,15 @@
         nav { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); background: white; padding: 10px 25px; border-radius: 50px; display: flex; gap: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); z-index: 1000; }
         nav button { background: none; border: none; color: #7f8c8d; font-size: 0.8rem; font-weight: bold; cursor: pointer; }
         nav button.active { color: var(--rosu); }
+
+        #music-controls { position: fixed; top: 20px; right: 20px; background: rgba(93, 58, 26, 0.9); padding: 12px; border-radius: 15px; display: flex; flex-direction: column; align-items: center; z-index: 10001; border: 2px solid var(--aur); }
+        #play-pause-btn { background: var(--rosu); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; }
+
+        @media (max-width: 768px) {
+            #opened-book { flex-direction: column; }
+            #intro-year { font-size: 4rem; }
+            .aromanian-text { font-size: 1.3rem; }
+        }
     </style>
 </head>
 <body>
@@ -96,6 +77,11 @@
 <audio id="audio-fundal" src="muzica_intro.mp3" loop></audio>
 
 <div id="site-wrapper">
+    <div id="music-controls">
+        <button id="play-pause-btn"><i class="fas fa-pause"></i></button>
+        <input type="range" min="0" max="1" step="0.01" value="0.05" id="volume-ctrl" style="width:80px; margin-top:10px;">
+    </div>
+
     <header>
         <h1 style="font-family:'Cinzel'; color:var(--rosu); margin:0;">Dumitru-Ovidiu Pascu</h1>
         <p style="font-weight:900; color:var(--albastru); letter-spacing:2px;">TRADIȚIE • INOVAȚIE • COVURLUI</p>
@@ -105,38 +91,40 @@
         <div id="acasa" class="section active">
             <div class="glass-panel">
                 <h2>Vatră</h2>
-                <p>Muzica este amprenta sufletului românesc în nemărginirea digitală.</p>
+                <p>Digitalizăm sufletul românesc pentru generațiile viitoare.</p>
             </div>
         </div>
         
         <div id="video" class="section">
-            <div class="sub-nav-tezaur">
-                <button id="btn-video" class="active" onclick="switchTezaur('video')">VIDEO</button>
-                <button id="btn-audio" onclick="switchTezaur('audio')">AUDIO</button>
-                <button id="btn-foto" onclick="switchTezaur('foto')">FOTO</button>
+            <h2 style="text-align:center; font-family:'Cinzel';">Tezaur Multimedia</h2>
+            <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px;">
+                <button onclick="switchTezaur('video')" id="btn-video" style="background:var(--lemn); color:var(--aur); border:2px solid var(--aur); padding:5px 15px; cursor:pointer;">VIDEO</button>
+                <button onclick="switchTezaur('audio')" id="btn-audio" style="background:var(--lemn); color:var(--aur); border:2px solid var(--aur); padding:5px 15px; cursor:pointer;">AUDIO</button>
+                <button onclick="switchTezaur('foto')" id="btn-foto" style="background:var(--lemn); color:var(--aur); border:2px solid var(--aur); padding:5px 15px; cursor:pointer;">FOTO</button>
             </div>
 
             <div id="tezaur-video">
                 <div id="tv-wrapper">
                     <div class="sigla-diamant">DIAMANT</div>
                     <div id="tv-screen-area">
-                        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;"><div id="player"></div></div>
+                        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+                            <div id="player"></div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div id="tezaur-audio" style="display:none;">
                 <div id="pickup-wrapper">
-                    <div id="vinil-disc"><div id="vinil-label"></div></div>
-                    <div style="text-align:center;"><button onclick="togglePickup()" style="background:var(--rosu); color:white; border:none; padding:10px; cursor:pointer;">START / STOP DISK</button></div>
+                    <div id="vinil-disc"><div id="vinil-label" style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:60px; height:60px; background:var(--rosu); border-radius:50%; border:2px solid var(--aur);"></div></div>
+                    <div style="text-align:center; margin-top:10px;"><button onclick="togglePickup()" style="background:var(--rosu); color:white; border:none; padding:10px; cursor:pointer; font-weight:bold;">START / STOP DISK</button></div>
                 </div>
             </div>
 
             <div id="tezaur-foto" style="display:none;">
-                <p style="text-align:center; font-style:italic;">Arhiva Foto Tezaur</p>
-                <div style="display:flex; overflow-x:auto; gap:10px; padding:10px; background:#000;">
-                    <img src="poza1.jpg" height="150"><img src="poza2.jpg" height="150"><img src="poza3.jpg" height="150">
-                    <img src="poza4.jpg" height="150"><img src="poza5.jpg" height="150"><img src="poza6.jpg" height="150">
+                <div style="display:flex; overflow-x:auto; gap:10px; padding:20px; background:#111; border:4px solid var(--aur);">
+                    <img src="poza1.jpg" height="200"><img src="poza2.jpg" height="200"><img src="poza3.jpg" height="200">
+                    <img src="poza4.jpg" height="200"><img src="poza5.jpg" height="200"><img src="poza6.jpg" height="200">
                 </div>
             </div>
         </div>
@@ -160,13 +148,13 @@
 </div>
 
 <div id="opened-book">
-    <div class="book-page" style="border-right: 1px solid rgba(0,0,0,0.1);">
-        <h3 style="font-family:'Cinzel';">Miorița</h3>
-        <p class="aromanian-text">Pe-un picior de plai,<br>Pe-o gură de rai...</p>
+    <div class="book-page left-page">
+        <div style="font-family:'Cinzel'; margin-bottom:20px; border-bottom:1px solid #000;">Miorița (Română)</div>
+        <p class="aromanian-text">Pe-un picior de plai,<br>Pe-o gură de rai,<br>Iată vin în cale,<br>Se cobor la vale,<br>Trei turme de miei,<br>Cu trei ciobănei.</p>
     </div>
     <div class="book-page">
-        <h3 style="font-family:'Cinzel';">Mioritsea</h3>
-        <p class="aromanian-text">Pi-un cicioar di plai,<br>Pi-unã gurã di rai...</p>
+        <div style="font-family:'Cinzel'; margin-bottom:20px; border-bottom:1px solid #000;">Mioritsea (Aromână)</div>
+        <p class="aromanian-text">Pi-un cicioar di plai,<br>Pi-unã gurã di rai,<br>Iaca yinu n-cali,<br>S-dipunu la vali,<br>Trei turmi di njelji,<br>Cu trei picurarlji.</p>
     </div>
 </div>
 
@@ -189,16 +177,30 @@
 <script src="https://www.youtube.com/iframe_api"></script>
 
 <script>
+    // 1. TEXT CURGATOR IN TAB-UL BROWSERULUI
+    let titluText = "Dumitru-Ovidiu Pascu - Tezaur Folcloric Digital - Tradiție și Inovație - ";
+    function scrollTitle() {
+        document.title = titluText;
+        titluText = titluText.substring(1) + titluText.substring(0, 1);
+        setTimeout(scrollTitle, 200);
+    }
+    scrollTitle();
+
     const audio = document.getElementById('audio-fundal');
+    const playPauseBtn = document.getElementById('play-pause-btn');
+    const volumeSlider = document.getElementById('volume-ctrl');
     let ytPlayer, aJuratDeja = false, pickupPlaying = false;
 
-    function onYouTubeIframeAPIReady() {
-        ytPlayer = new YT.Player('player', {
-            height: '100%', width: '100%',
-            videoId: 'videoseries',
-            playerVars: { listType: 'playlist', list: 'PLU99XRyrYep3X6HGO0T9VTWMDPoPsGGhi', rel: 0, playsinline: 1 },
-            events: { 'onStateChange': (e) => { if (e.data == YT.PlayerState.PLAYING) audio.pause(); } }
-        });
+    // YouTube Setup - Definim functia dar nu o apelam pana nu e site-ul vizibil
+    function setupYouTube() {
+        if (typeof YT !== 'undefined' && YT.Player) {
+            ytPlayer = new YT.Player('player', {
+                height: '100%', width: '100%',
+                videoId: 'videoseries',
+                playerVars: { listType: 'playlist', list: 'PLU99XRyrYep3X6HGO0T9VTWMDPoPsGGhi', rel: 0, playsinline: 1 },
+                events: { 'onStateChange': (e) => { if (e.data == YT.PlayerState.PLAYING) audio.pause(); } }
+            });
+        }
     }
 
     function juraSiPorneste() {
@@ -209,6 +211,7 @@
             const book = document.getElementById('opened-book');
             book.style.display = 'flex';
             setTimeout(() => book.style.opacity = '1', 50);
+            
             setTimeout(() => {
                 book.style.opacity = '0';
                 setTimeout(() => { book.style.display = 'none'; pornesteCinema(); }, 1500);
@@ -239,7 +242,11 @@
                             intro.style.display = 'none';
                             const wrapper = document.getElementById('site-wrapper');
                             wrapper.style.display = 'block';
-                            setTimeout(() => wrapper.style.opacity = '1', 50);
+                            setTimeout(() => {
+                                wrapper.style.opacity = '1';
+                                // ABIA ACUM INITIALIZAM YOUTUBE-UL
+                                setupYouTube();
+                            }, 50);
                             document.body.style.overflow = 'auto';
                         }, 1500);
                     }, 4000);
@@ -251,12 +258,8 @@
     }
 
     function switchTezaur(type) {
-        ['video', 'audio', 'foto'].forEach(t => {
-            document.getElementById('tezaur-' + t).style.display = 'none';
-            document.getElementById('btn-' + t).classList.remove('active');
-        });
+        ['video', 'audio', 'foto'].forEach(t => { document.getElementById('tezaur-' + t).style.display = 'none'; });
         document.getElementById('tezaur-' + type).style.display = 'block';
-        document.getElementById('btn-' + type).classList.add('active');
     }
 
     function togglePickup() {
@@ -272,9 +275,8 @@
         btn.classList.add('active');
     }
 
-    let titluText = "Dumitru-Ovidiu Pascu - Tezaur Folcloric Digital - ";
-    function scrollTitle() { document.title = titluText; titluText = titluText.substring(1) + titluText.substring(0, 1); setTimeout(scrollTitle, 200); }
-    scrollTitle();
+    playPauseBtn.onclick = () => { if (audio.paused) audio.play(); else audio.pause(); };
+    volumeSlider.oninput = () => { audio.volume = volumeSlider.value; };
 </script>
 </body>
 </html>
