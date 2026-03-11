@@ -19,9 +19,7 @@
     <style>
         :root { --rosu-sange: #C8102E; --albastru-cobalt: #002366; --auriu-grau: #F1C40F; --fundal-in: #F9F6F0; }
 
-        /* ------------------------------------------- */
-        /* POARTA DE INTRARE: JURĂMÂNTUL PE BIBLIE     */
-        /* ------------------------------------------- */
+        /* POARTA DE INTRARE: JURĂMÂNTUL PE BIBLIE */
         #start-gate {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle, #1a1a1a 0%, #000000 100%); z-index: 9999999;
@@ -46,13 +44,9 @@
 
         /* BIBLIA VECHE MARE */
         .biblia {
-            width: 350px; /* Dublata ca marime */
-            max-width: 80vw;
-            height: auto;
-            border-radius: 8px;
+            width: 350px; max-width: 80vw; height: auto; border-radius: 8px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.9), 0 0 30px rgba(241, 196, 15, 0.15);
-            cursor: pointer;
-            transition: all 0.5s ease;
+            cursor: pointer; transition: all 0.5s ease;
             filter: grayscale(40%) sepia(30%) contrast(1.2);
         }
 
@@ -68,18 +62,20 @@
             color: var(--auriu-grau); animation: pulseText 2s infinite; text-transform: uppercase;
         }
 
-        /* ------------------------------------------- */
-        /* CARTEA DESCHISĂ: 2 PAGINI BILINGVE          */
-        /* ------------------------------------------- */
+        /* CARTEA DESCHISĂ: PAGINI VECHI ȘI ARSE */
         #opened-book {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: #dcb889; 
-            background-image: url('https://www.transparenttextures.com/patterns/parchment.png');
-            box-shadow: inset 0 0 100px rgba(89, 58, 23, 0.9);
+            background-color: #ba8c59; /* Culoare de baza pergament intunecat */
+            /* Efectul de margini arse/afumate prin radial-gradient */
+            background-image: 
+                radial-gradient(ellipse at center, rgba(0,0,0,0) 35%, rgba(40, 15, 0, 0.8) 85%, rgba(15, 5, 0, 0.98) 100%),
+                url('https://www.transparenttextures.com/patterns/parchment.png');
+            box-shadow: inset 0 0 150px rgba(20, 5, 0, 0.95);
             display: none; 
             flex-direction: row; justify-content: center; align-items: stretch;
             opacity: 0; transition: opacity 1.5s ease;
             z-index: 10; padding: 20px; box-sizing: border-box;
+            filter: contrast(1.1) sepia(0.2);
         }
 
         .book-page {
@@ -89,40 +85,37 @@
         }
 
         .left-page {
-            border-right: 2px solid rgba(89, 58, 23, 0.2);
-            box-shadow: inset -30px 0 30px -30px rgba(0,0,0,0.5);
+            border-right: 3px solid rgba(40, 20, 0, 0.4);
+            box-shadow: inset -40px 0 40px -30px rgba(0,0,0,0.6);
         }
 
         .right-page {
-            box-shadow: inset 30px 0 30px -30px rgba(0,0,0,0.5);
+            box-shadow: inset 40px 0 40px -30px rgba(0,0,0,0.6);
         }
 
         .aromanian-text {
             font-family: 'EB Garamond', serif; 
-            font-size: 2.2rem; color: #2e1a0f; text-align: center;
-            line-height: 1.6; font-style: italic;
-            text-shadow: 1px 1px 2px rgba(255,255,255,0.2);
+            font-size: 2.2rem; color: #211005; /* Cerneala foarte veche/stearsa */
+            text-align: center; line-height: 1.6; font-style: italic;
+            text-shadow: 1px 1px 1px rgba(255,255,255,0.1);
         }
 
         .aromanian-title {
-            font-family: 'Cinzel', serif; font-size: 1.2rem; color: #593a17;
+            font-family: 'Cinzel', serif; font-size: 1.2rem; color: #3a1d09;
             font-weight: bold; letter-spacing: 3px; text-transform: uppercase; 
-            margin-bottom: 30px; border-bottom: 1px solid #593a17; padding-bottom: 5px;
+            margin-bottom: 30px; border-bottom: 1px solid rgba(58, 29, 9, 0.5); padding-bottom: 5px;
         }
 
-        /* Adaptare pt telefoane */
         @media (max-width: 768px) {
             #opened-book { flex-direction: column; padding: 10px; }
             .book-page { padding: 10px; }
-            .left-page { border-right: none; border-bottom: 2px solid rgba(89, 58, 23, 0.2); box-shadow: inset 0 -30px 30px -30px rgba(0,0,0,0.5); }
-            .right-page { box-shadow: inset 0 30px 30px -30px rgba(0,0,0,0.5); }
+            .left-page { border-right: none; border-bottom: 3px solid rgba(40, 20, 0, 0.4); box-shadow: inset 0 -40px 40px -30px rgba(0,0,0,0.6); }
+            .right-page { box-shadow: inset 0 40px 40px -30px rgba(0,0,0,0.6); }
             .aromanian-text { font-size: 1.3rem; line-height: 1.4; }
             .aromanian-title { font-size: 0.9rem; margin-bottom: 15px; }
         }
 
-        /* ------------------------------------------- */
-        /* INTRO CINEMATOGRAFIC                        */
-        /* ------------------------------------------- */
+        /* INTRO CINEMATOGRAFIC */
         #intro-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #050505; z-index: 999999; display: none;
@@ -156,10 +149,10 @@
         #intro-screen.modern-era #intro-bg { filter: grayscale(0%) hue-rotate(180deg) brightness(1.2); opacity: 0.6; }
         #intro-screen.modern-era #intro-year { color: var(--auriu-grau); text-shadow: 0 0 40px var(--auriu-grau); transform: scale(1.1); }
 
-        /* Restul Site-ului... */
+        /* SITE-UL TĂU PROPRIU-ZIS */
         ::selection { background-color: var(--rosu-sange); color: var(--auriu-grau); }
         body { background-color: var(--fundal-in); background-image: radial-gradient(rgba(0, 35, 102, 0.05) 2px, transparent 2px), url('https://www.transparenttextures.com/patterns/natural-linen.png'); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; color: #2c3e50; overflow: hidden; }
-        .glass-panel { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.8); border-top: 4px solid var(--rosu-sange); border-bottom: 4px solid var(--albabtru-cobalt); border-radius: 15px; box-shadow: 0 8px 32px 0 rgba(0,0,0,0.05); padding: 30px; margin-bottom: 30px; position: relative; overflow: hidden; }
+        .glass-panel { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.8); border-top: 4px solid var(--rosu-sange); border-bottom: 4px solid var(--albastru-cobalt); border-radius: 15px; box-shadow: 0 8px 32px 0 rgba(0,0,0,0.05); padding: 30px; margin-bottom: 30px; position: relative; overflow: hidden; }
         header { text-align: center; padding: 50px 20px 30px; }
         .titlu-modern { font-family: 'Georgia', serif; font-size: 2.4rem; color: var(--rosu-sange); text-transform: uppercase; margin: 0; letter-spacing: 2px; text-shadow: 2px 2px 4px rgba(0,0,0,0.1); }
         .subtitlu-tech { font-size: 1rem; font-weight: 600; letter-spacing: 4px; color: var(--albastru-cobalt); margin-top: 15px; }
@@ -170,8 +163,6 @@
         h2.section-title { font-family: 'Georgia', serif; color: var(--albastru-cobalt); font-size: 1.6rem; border-bottom: 2px dashed #e0e0e0; padding-bottom: 10px; }
         .video-premium { border-radius: 10px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.2); position: relative; padding-bottom: 56.25%; height: 0; border: 3px solid white; }
         .video-premium iframe { position: absolute; top:0; left:0; width:100%; height:100%; }
-        .btn-modern { display: inline-block; background: linear-gradient(135deg, var(--rosu-sange), #a00000); color: white !important; padding: 16px 35px; text-decoration: none; font-weight: bold; border-radius: 30px; margin-top: 25px; transition: all 0.3s; letter-spacing: 1px; cursor: pointer; border: none; font-size: 1.1rem; }
-        .btn-modern:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(200, 16, 46, 0.4); }
         nav { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.9); display: flex; justify-content: center; gap: 20px; padding: 12px 25px; border-radius: 50px; z-index: 10000; box-shadow: 0 10px 30px rgba(0,0,0,0.1); backdrop-filter: blur(10px); }
         nav button { background: none; border: none; color: #7f8c8d; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; display: flex; flex-direction: column; align-items: center; transition: 0.3s; cursor: pointer; }
         nav button i { font-size: 1.4rem; transition: 0.3s; }
@@ -228,3 +219,14 @@
     <div id="intro-year">1600</div>
     <div id="intro-text">Cântecul se naște din pământ, dor și vânt...</div>
 </div>
+
+<header>
+    <h1 class="titlu-modern">Dumitru-Ovidiu Pascu</h1>
+    <div class="subtitlu-tech"><span>TRADIȚIE</span> • <span>INOVAȚIE</span> • <span>COVURLUI</span></div>
+</header>
+
+<div class="container">
+    <div id="acasa" class="section active">
+        <div class="glass-panel">
+            <h2 class="section-title">O Călătorie Sonoră</h2>
+            <p>Acest portal digital este o invitație deschisă către inima muzicii tradiționale.</p>
