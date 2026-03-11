@@ -19,17 +19,18 @@
     <style>
         :root { --rosu-sange: #C8102E; --albastru-cobalt: #002366; --auriu-grau: #F1C40F; --fundal-in: #F9F6F0; }
 
-        /* POARTA DE INTRARE: JURĂMÂNTUL PE BIBLIE */
+        /* POARTA DE INTRARE: Acum TOT ECRANUL este click-abil */
         #start-gate {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle, #1a1a1a 0%, #000000 100%); z-index: 9999999;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             color: #d2b48c; font-family: 'Georgia', serif; text-align: center;
+            cursor: pointer; /* Cursor de click peste tot */
         }
 
         #gate-content {
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            transition: opacity 1s ease;
+            transition: opacity 1s ease; pointer-events: none; /* Lasa click-ul sa treaca la ecranul parinte */
         }
 
         .titlu-juramant {
@@ -46,11 +47,13 @@
         .biblia {
             width: 350px; max-width: 80vw; height: auto; border-radius: 8px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.9), 0 0 30px rgba(241, 196, 15, 0.15);
-            cursor: pointer; transition: all 0.5s ease;
+            transition: all 0.5s ease;
             filter: grayscale(40%) sepia(30%) contrast(1.2);
+            pointer-events: auto; /* Aceasta imagine asculta si ea hover-ul */
         }
 
-        .biblia:hover {
+        /* Efect de hover pe biblie cand esti cu mouse-ul pe ea (pe PC) */
+        .biblia:hover, #start-gate:hover .biblia {
             transform: scale(1.05);
             box-shadow: 0 15px 50px rgba(0,0,0,1), 0 0 50px rgba(241, 196, 15, 0.7);
             filter: grayscale(0%) sepia(0%) brightness(1.2) contrast(1.3);
@@ -65,8 +68,7 @@
         /* CARTEA DESCHISĂ: PAGINI VECHI ȘI ARSE */
         #opened-book {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: #ba8c59; /* Culoare de baza pergament intunecat */
-            /* Efectul de margini arse/afumate prin radial-gradient */
+            background-color: #ba8c59; 
             background-image: 
                 radial-gradient(ellipse at center, rgba(0,0,0,0) 35%, rgba(40, 15, 0, 0.8) 85%, rgba(15, 5, 0, 0.98) 100%),
                 url('https://www.transparenttextures.com/patterns/parchment.png');
@@ -95,7 +97,7 @@
 
         .aromanian-text {
             font-family: 'EB Garamond', serif; 
-            font-size: 2.2rem; color: #211005; /* Cerneala foarte veche/stearsa */
+            font-size: 2.2rem; color: #211005; 
             text-align: center; line-height: 1.6; font-style: italic;
             text-shadow: 1px 1px 1px rgba(255,255,255,0.1);
         }
@@ -174,14 +176,14 @@
 
 <audio id="audio-fundal" src="muzica_intro.mp3"></audio>
 
-<div id="start-gate">
+<div id="start-gate" onclick="juraSiPorneste()">
     <div id="gate-content">
         <div class="titlu-juramant">Jurământul Tradiției</div>
         <div class="text-juramant">„Înainte de a păși în acest tezaur, jură să respecți, să păstrezi și să dai mai departe moștenirea sfântă a neamului românesc.”</div>
         
-        <img src="biblia-veche.jpg" alt="Sfânta Scriptură" class="biblia" onclick="juraSiPorneste()">
+        <img src="biblia-veche.jpg" alt="Sfânta Scriptură" class="biblia">
         
-        <div class="instructiune-juramant"><i class="fas fa-hand-pointer"></i> Pune mâna pe Carte pentru a jura</div>
+        <div class="instructiune-juramant"><i class="fas fa-hand-pointer"></i> Atinge ecranul pentru a jura</div>
     </div>
 
     <div id="opened-book">
@@ -265,7 +267,15 @@
         2026: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1000&auto=format&fit=crop'
     };
 
+    let aJuratDeja = false;
+
     function juraSiPorneste() {
+        if(aJuratDeja) return; // Sa nu poata apasa de doua ori
+        aJuratDeja = true;
+
+        // Oprim clickul pe parcursul animatiei
+        document.getElementById('start-gate').style.cursor = 'default';
+
         document.getElementById('gate-content').style.opacity = '0';
         
         setTimeout(() => {
